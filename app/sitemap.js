@@ -2,7 +2,8 @@ import { getBlog } from "@/lib/api";
 import { SITE } from "@/lib/siteConfig";
 
 export default async function sitemap() {
-  const posts = (await getBlog()) ?? [];
+  const blogData = await getBlog();
+  const posts = Array.isArray(blogData) ? blogData : (blogData?.posts ?? []);
 
   const staticRoutes = [
     { url: SITE.url, priority: 1.0, changeFrequency: "weekly" },
