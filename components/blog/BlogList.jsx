@@ -134,7 +134,7 @@ export default function BlogList({ posts, pagination }) {
           <br className="hidden sm:block" /> ve Gusto Gündeminden
         </h1>
         <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-[var(--muted)]">
-          Mevsimsel lezzetler, doğa ile yemek kültürü ve Kartepe'den ilham veren hikayeler.
+          Mevsimsel lezzetler, doğa ile yemek kültürü ve Kartepe&apos;den ilham veren hikayeler.
         </p>
       </div>
 
