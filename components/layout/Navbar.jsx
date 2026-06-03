@@ -149,7 +149,7 @@ function MobileNavItem({ item, onClose }) {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className={`flex w-full items-center justify-between py-1 text-2xl font-playfair ${
+          className={`flex w-full items-center justify-between py-4 text-xl font-playfair ${
             isActive ? "text-[var(--bordeaux)]" : "text-[var(--dark)]"
           }`}
         >
@@ -189,7 +189,7 @@ function MobileNavItem({ item, onClose }) {
     <Link
       href={item.url}
       onClick={onClose}
-      className={`block py-1 text-2xl font-playfair ${
+      className={`block py-4 text-xl font-playfair ${
         isActive ? "text-[var(--bordeaux)]" : "text-[var(--dark)]"
       }`}
     >
@@ -264,17 +264,21 @@ export default function Navbar({ items, company }) {
       {/* Mobile menu */}
       {isOpen && (
         <div className="border-t border-[var(--beige)] bg-[var(--cream)] lg:hidden">
-          <nav className="container-shell flex min-h-[calc(100vh-6rem)] flex-col justify-center gap-5 py-10">
+          <nav className="container-shell flex flex-col py-6">
             {items.filter((item) => !isComingSoon(item)).map((item, i) => (
-              <MobileNavItem key={`m-${item.url}-${i}`} item={item} onClose={() => setIsOpen(false)} />
+              <div key={`m-${item.url}-${i}`} className="border-b border-[var(--beige)]">
+                <MobileNavItem item={item} onClose={() => setIsOpen(false)} />
+              </div>
             ))}
-            <Link
-              href="/restoran/rezervasyon"
-              onClick={() => setIsOpen(false)}
-              className="mt-4 inline-flex w-fit rounded-full bg-[var(--bordeaux)] px-6 py-3 text-sm font-bold tracking-[0.2em] text-white uppercase"
-            >
-              Rezervasyon Yap
-            </Link>
+            <div className="pt-8 pb-4">
+              <Link
+                href="/restoran/rezervasyon"
+                onClick={() => setIsOpen(false)}
+                className="inline-flex w-full items-center justify-center rounded-full bg-[var(--bordeaux)] px-6 py-4 text-sm font-bold tracking-[0.2em] text-white uppercase"
+              >
+                Rezervasyon Yap
+              </Link>
+            </div>
           </nav>
         </div>
       )}

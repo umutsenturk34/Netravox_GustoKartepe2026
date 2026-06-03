@@ -28,7 +28,7 @@ export function Logo({ light = false, logoUrl = null, logoUrlDark = null }) {
           height={144}
           className="h-[64px] w-auto object-contain"
           priority
-          quality={100}
+          unoptimized
         />
       </Link>
     );
