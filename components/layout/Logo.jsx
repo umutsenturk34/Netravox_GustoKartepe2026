@@ -24,10 +24,11 @@ export function Logo({ light = false, logoUrl = null, logoUrlDark = null }) {
         <Image
           src={src}
           alt={SITE.name}
-          width={220}
-          height={72}
+          width={440}
+          height={144}
           className="h-[64px] w-auto object-contain"
           priority
+          quality={100}
         />
       </Link>
     );

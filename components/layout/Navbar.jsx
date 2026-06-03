@@ -265,7 +265,7 @@ export default function Navbar({ items, company }) {
       {isOpen && (
         <div className="border-t border-[var(--beige)] bg-[var(--cream)] lg:hidden">
           <nav className="container-shell flex min-h-[calc(100vh-6rem)] flex-col justify-center gap-5 py-10">
-            {items.map((item, i) => (
+            {items.filter((item) => !isComingSoon(item)).map((item, i) => (
               <MobileNavItem key={`m-${item.url}-${i}`} item={item} onClose={() => setIsOpen(false)} />
             ))}
             <Link
