@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* ── TAILWIND THEME OVERRIDE ── */
+@theme {
+  --font-sans:  var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:  ui-monospace, 'Cascadia Code', monospace;
+}
+
+/* ── CSS VARIABLES ─────────────────────────────────────────────────── */
+
+:root {
+  --font-lato:     var(--font-inter), sans-serif;
+  --font-playfair: var(--font-playfair), 'Georgia', serif;
+
+  --cream: #fbfaf8;
+  --dark: #1e1810;
+  --hero-dark: #1f190f;
+  --bordeaux: #82171b;
+  --gold: #ab9363;
+  --beige: #e7e0d5;
+  --muted: #715e41;
+  --surface: #ffffff;
+}
+
+/* ── TAILWIND CUSTOM UTILITIES ─────────────────────────────────────── */
+
+@utility font-playfair {
+  font-family: var(--font-playfair);
+}
+
+@utility font-lato {
+  font-family: var(--font-lato);
+}
+
+/* ── BASE ──────────────────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-inter), sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Form elementleri bazı tarayıcılarda font-family inherit etmez */
+button, input, select, textarea, optgroup {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* @layer base içinde — utilities (text-white vb.) bu kuralı geçersiz kılar */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(130, 23, 27, 0.16);
+  color: var(--dark);
+}
+
+/* ── LAYOUT ────────────────────────────────────────────────────────── */
+
+.container-shell {
+  margin: 0 auto;
+  width: min(1240px, calc(100% - 2rem));
+}
+
+.section-space {
+  padding-block: 6rem;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(120deg, rgba(31, 25, 15, 0.92), rgba(31, 25, 15, 0.62)),
+    radial-gradient(circle at top right, rgba(171, 147, 99, 0.24), transparent 32%);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.home-paper {
+  background:
+    radial-gradient(circle at top, rgba(171, 147, 99, 0.08), transparent 24%),
+    linear-gradient(180deg, #f8f4ef 0%, #fbfaf8 100%);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
