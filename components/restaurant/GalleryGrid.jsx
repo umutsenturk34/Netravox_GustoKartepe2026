@@ -101,6 +101,7 @@ function Lightbox({ images, index, onClose }) {
 export default function GalleryGrid({ images }) {
   const [active, setActive] = useState("Tumu");
   const [lightbox, setLightbox] = useState(null);
+  const [failed, setFailed] = useState(new Set());
 
   const filtered = useMemo(() => {
     if (active === "Tumu") return images;
@@ -134,9 +135,11 @@ export default function GalleryGrid({ images }) {
           {filtered.map((img, i) => {
             const aspect = ASPECT_CYCLE[i % ASPECT_CYCLE.length];
             const alt = getLocalizedText(img.alt) || getLocalizedText(img.caption) || "Gusto Kartepe";
+            const key = img._id || i;
+            if (failed.has(key)) return null;
             return (
               <div
-                key={img._id || i}
+                key={key}
                 className={`relative ${aspect} mb-3 break-inside-avoid overflow-hidden rounded-xl group cursor-pointer`}
                 onClick={() => setLightbox(i)}
               >
@@ -146,6 +149,7 @@ export default function GalleryGrid({ images }) {
                   fill
                   className="object-cover transition duration-500 group-hover:scale-105"
                   sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
+                  onError={() => setFailed(prev => new Set([...prev, key]))}
                 />
                 <div className="absolute inset-0 bg-[var(--dark)]/0 transition duration-300 group-hover:bg-[var(--dark)]/30" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
