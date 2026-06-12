@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/siteConfig";
 
@@ -21,14 +20,12 @@ export function Logo({ light = false, logoUrl = null, logoUrlDark = null }) {
   if (src) {
     return (
       <Link href="/" className="inline-flex items-center">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={src}
           alt={SITE.name}
-          width={440}
-          height={144}
           className="h-[64px] w-auto object-contain"
-          priority
-          unoptimized
+          style={{ imageRendering: 'crisp-edges' }}
         />
       </Link>
     );
