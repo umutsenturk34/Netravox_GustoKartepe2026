@@ -2,7 +2,7 @@ import GalleryClient from "@/components/restaurant/GalleryClient";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { getCompany, getGallery, getPage } from "@/lib/api";
+import { getCompany, getGallery, getFeaturedGallery, getPage } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 
@@ -16,7 +16,7 @@ export async function generateMetadata() {
 }
 
 export default async function GaleriPage() {
-  const [images, company, page] = await Promise.all([getGallery(), getCompany(), getPage("gallery")]);
+  const [images, featuredImages, company, page] = await Promise.all([getGallery(), getFeaturedGallery(), getCompany(), getPage("gallery")]);
 
   return (
     <>
@@ -37,6 +37,7 @@ export default async function GaleriPage() {
       )}
       <GalleryClient
         images={images ?? []}
+        featuredImages={featuredImages ?? []}
         company={company}
         hasBlocks={Array.isArray(page?.blocks) && page.blocks.length > 0}
       />

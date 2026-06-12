@@ -16,14 +16,14 @@ const FEATURED_TITLES = {
   "Mekan Detaylari": "Mekan Detayları",
 };
 
-export default function GalleryClient({ images, company, hasBlocks }) {
+export default function GalleryClient({ images, featuredImages = [], company, hasBlocks }) {
   const contact = getCompanyContact(company);
   const instagramUrl = contact.instagram || SITE.instagram;
   const instagramHandle = instagramUrl
     ? instagramUrl.replace(/https?:\/\/(www\.)?instagram\.com\/?/, "").replace(/\/$/, "")
     : "gustokartepe";
 
-  const featured = images.slice(0, 3);
+  const featured = featuredImages.length > 0 ? featuredImages : [];
 
   return (
     <main className="bg-[var(--cream)]">
