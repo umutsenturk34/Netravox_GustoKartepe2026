@@ -291,7 +291,7 @@ export default function ReservationForm() {
           </div>
 
           {/* ── Kat Seçimi ── */}
-          {showAreaSelector && !form.tableArea && (
+          {showAreaSelector && (
             <div>
               <label className="mb-2 block text-xs font-semibold text-[var(--dark)]">
                 Oturma Katı
