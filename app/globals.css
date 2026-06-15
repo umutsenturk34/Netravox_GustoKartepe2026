@@ -53,9 +53,11 @@ body {
 }
 
 /* Form elementleri bazı tarayıcılarda font-family inherit etmez */
-button, input, select, textarea, optgroup {
-  font-family: inherit;
-  font-size: inherit;
+@layer base {
+  button, input, select, textarea, optgroup {
+    font-family: inherit;
+    font-size: inherit;
+  }
 }
 
 /* @layer base içinde — utilities (text-white vb.) bu kuralı geçersiz kılar */
