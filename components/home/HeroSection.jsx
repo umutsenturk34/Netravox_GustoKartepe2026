@@ -1,15 +1,20 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import { homeImagery } from "@/lib/homeData";
-import { getLocalizedText } from "@/lib/utils";
+import { homeImagery } from '@/lib/homeData';
+import { getLocalizedText } from '@/lib/utils';
 
 export default function HeroSection({ company }) {
   return (
     <section className="relative overflow-hidden bg-[var(--hero-dark)] text-white">
       <div className="absolute inset-0">
         <Image
-          src={company?.heroImage || company?.content?.heroImage || company?.coverImage || homeImagery.hero}
+          src={
+            company?.heroImage ||
+            company?.content?.heroImage ||
+            company?.coverImage ||
+            homeImagery.hero
+          }
           alt="Gusto Kartepe doga manzarasi"
           fill
           priority
@@ -31,7 +36,10 @@ export default function HeroSection({ company }) {
             Bir Sofra
           </h1>
           <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-white/72 md:text-base">
-            {getLocalizedText(company?.description, "Agaclarin arasina yerlesen, dogayla butunlesen ve her detayinda dinginlik tasiyan bir restoran deneyimi.")}
+            {getLocalizedText(
+              company?.description,
+              'Agaclarin arasina yerlesen, dogayla butunlesen ve her detayinda dinginlik tasiyan bir restoran deneyimi.'
+            )}
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
             <Link

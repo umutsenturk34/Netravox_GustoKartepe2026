@@ -19,14 +19,27 @@ export default async function ReservationPage() {
   const [company, gallery, page] = await Promise.all([getCompany(), getGallery(), getPage("reservation")]);
 
   const galleryImages = Array.isArray(gallery) ? gallery : [];
-  // reservationHeroImage: panel'den company.content'e özel alan, yoksa galeri'den ilk uygun
+
+  // Sayfa bloklarından hero block'u bul
+  const heroBlock = Array.isArray(page?.blocks)
+    ? page.blocks.find((b) => b.type === "hero")
+    : null;
+
+  // Öncelik: page blocks hero → company ayarı → galeri fallback
   const heroBg =
+    heroBlock?.data?.image ||
     company?.content?.reservationHeroImage ||
     galleryImages[0]?.url ||
     null;
 
-  const heroTitle    = getLocalizedText(company?.content?.reservationHeroTitle,    "Rezervasyon");
-  const heroSubtitle = getLocalizedText(company?.content?.reservationHeroSubtitle, "Doğanın içinde özel masanızı ayırtın ve unutulmaz bir gastronomi deneyimine hazırlanın.");
+  const heroTitle = heroBlock?.data?.title?.tr ||
+    getLocalizedText(company?.content?.reservationHeroTitle, "Rezervasyon");
+  const heroSubtitle = heroBlock?.data?.subtitle?.tr ||
+    getLocalizedText(company?.content?.reservationHeroSubtitle, "Doğanın içinde özel masanızı ayırtın ve unutulmaz bir gastronomi deneyimine hazırlanın.");
+
+  // Relative path (/uploads/...) production'da çalışmaz — sadece tam URL kabul et
+  const isAbsoluteUrl = (url) => url && (url.startsWith("http://") || url.startsWith("https://"));
+  const safeBg = isAbsoluteUrl(heroBg) ? heroBg : null;
 
   // Formun içindeki küçük fotoğraf için galeri[1] veya [0] kullanılır
   const sidebarImage = galleryImages[1]?.url || galleryImages[0]?.url || null;
@@ -43,9 +56,9 @@ export default async function ReservationPage() {
 
       {/* ── HERO BANNER ─────────────────────────────────── */}
       <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        {heroBg ? (
+        {safeBg ? (
           <Image
-            src={heroBg}
+            src={safeBg}
             alt="Gusto Kartepe Rezervasyon"
             fill
             className="object-cover"

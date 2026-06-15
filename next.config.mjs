@@ -20,10 +20,19 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
 ];
 
+const backendUrl = process.env.BACKEND_URL || "http://localhost:5001";
+
 const nextConfig = {
   images: { remotePatterns },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  async rewrites() {
+    // Dev ortamında /uploads/* isteklerini local backend'e proxy'le
+    if (process.env.NODE_ENV !== "production") {
+      return [{ source: "/uploads/:path*", destination: `${backendUrl}/uploads/:path*` }];
+    }
+    return [];
   },
   async redirects() {
     return [
