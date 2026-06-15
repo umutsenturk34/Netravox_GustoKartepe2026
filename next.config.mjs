@@ -5,12 +5,12 @@ const remotePatterns = [
   { protocol: "https", hostname: "*.cloudflare.com" },
   { protocol: "https", hostname: "images.unsplash.com" },
   { protocol: "http", hostname: "localhost" },
+  // Netravox S3 bucket — *.amazonaws.com tek subdomain yakalar, çok noktalı URL'i yakalamaz
+  { protocol: "https", hostname: "netravox-media.s3.us-east-1.amazonaws.com" },
 ];
 
 if (cdnHost) {
   remotePatterns.push({ protocol: "https", hostname: cdnHost });
-} else {
-  remotePatterns.push({ protocol: "https", hostname: "*.amazonaws.com" });
 }
 
 const securityHeaders = [
