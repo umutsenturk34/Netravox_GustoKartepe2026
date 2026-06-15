@@ -175,7 +175,7 @@ export default function DatePicker({ value, onChange, min }) {
                 } else if (isFull) {
                   statusEl = <span style={{ color: isSelected ? "rgba(255,255,255,0.75)" : "#dc2626" }}>Dolu</span>;
                 } else if (hasInfo && info.totalSlots > 0) {
-                  statusEl = <span style={{ color: isSelected ? "rgba(255,255,255,0.8)" : "#16a34a" }}>{slots} slot</span>;
+                  statusEl = <span style={{ color: isSelected ? "rgba(255,255,255,0.8)" : "#16a34a" }}>{slots} seans</span>;
                 }
               }
 

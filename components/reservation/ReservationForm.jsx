@@ -283,7 +283,7 @@ export default function ReservationForm() {
                 const isFull = slot.isFull || slot.available === false;
                 return (
                   <option key={slot.time} value={slot.time} disabled={isFull} style={isFull ? { color: "#9ca3af" } : {}}>
-                    {slot.time}{isFull ? " — Dolu" : slot.available != null ? ` (${slot.available} masa)` : ""}
+                    {slot.time}{isFull ? " — Dolu" : ""}
                   </option>
                 );
               })}
