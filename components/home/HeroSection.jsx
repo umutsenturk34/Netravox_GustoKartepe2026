@@ -28,7 +28,7 @@ export default function HeroSection({ company }) {
           <p className="mb-5 text-[10px] font-bold tracking-[0.38em] text-white/72 uppercase">
             Gusto Kartepe Deneyimi
           </p>
-          <h1 className="text-balance font-playfair text-5xl leading-[0.96] md:text-7xl">
+          <h1 className="text-balance text-5xl font-bold leading-[0.93] md:text-7xl">
             Doganin Kalbinde
             <br />
             Rafine ve Sessiz

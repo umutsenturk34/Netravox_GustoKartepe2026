@@ -73,10 +73,7 @@ export default async function ReservationPage() {
           style={{ background: "linear-gradient(180deg, rgba(12,10,8,0.45) 0%, rgba(12,10,8,0.72) 100%)" }}
         />
         <div className="relative z-10 text-center text-white px-4">
-          <h1
-            className="text-5xl md:text-7xl font-bold leading-[0.93] text-white"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
+          <h1 className="text-5xl md:text-7xl font-bold leading-[0.93] text-white">
             {heroTitle}
           </h1>
           <p className="mt-5 text-sm leading-relaxed text-white/70 max-w-md mx-auto">

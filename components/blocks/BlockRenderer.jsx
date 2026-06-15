@@ -47,10 +47,7 @@ function HeroBlock({ data }) {
           </p>
         )}
         {title && (
-          <h1
-            className="text-5xl md:text-7xl font-bold text-white leading-[0.93]"
-            style={{ fontFamily: 'var(--font-playfair)' }}
-          >
+          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[0.93]">
             {title}
           </h1>
         )}
