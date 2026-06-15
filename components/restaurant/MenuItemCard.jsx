@@ -32,6 +32,16 @@ export default function MenuItemCard({ item }) {
         <p className="mt-4 text-base leading-7 text-[var(--muted)]">
           {description || "Lezzet detayı yakında güncellenecek."}
         </p>
+        {Array.isArray(item?.allergens) && item.allergens.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {item.allergens.map((a) => (
+              <span key={a} className="inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase"
+                style={{ borderColor: 'var(--beige)', color: 'var(--muted)' }}>
+                {a}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );

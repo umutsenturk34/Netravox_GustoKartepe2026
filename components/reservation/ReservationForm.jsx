@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import {
   Users, Clock, ChevronDown, CheckCircle2, AlertCircle,
-  Loader2, Layers, Building2, TreePine, X, ChevronLeft,
+  Loader2, Layers, Building2, TreePine,
 } from "lucide-react";
 import DatePicker from "@/components/reservation/DatePicker";
 
@@ -117,56 +117,6 @@ function AreaCard({ area, selected, onSelect, partySize }) {
   );
 }
 
-/* ── Bireysel masa kartı ──────────────────────────────────────────────────── */
-function TableCard({ table, selected, onSelect, partySize }) {
-  const tooSmall   = partySize > 0 && table.capacity < partySize;
-  const isDisabled = table.isBooked || tooSmall;
-  const isSelected = selected === table.number;
-
-  let badge = null;
-  if (table.isBooked) {
-    badge = <span className="rounded-full bg-red-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-red-500">Dolu</span>;
-  } else if (tooSmall) {
-    badge = <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600">Küçük</span>;
-  }
-
-  return (
-    <button
-      type="button"
-      disabled={isDisabled}
-      onClick={() => onSelect(isSelected ? null : table.number)}
-      className="flex flex-col gap-1.5 rounded-xl border-2 p-3 text-left transition"
-      style={{
-        borderColor: isSelected ? "var(--bordeaux)" : "var(--beige)",
-        background:  isSelected ? "var(--bordeaux)" : isDisabled ? "#f9f9f8" : "#fff",
-        opacity:     isDisabled ? 0.55 : 1,
-        cursor:      isDisabled ? "default" : "pointer",
-        boxShadow:   isSelected ? "0 4px 12px rgba(130,23,27,0.2)" : "0 1px 4px rgba(30,24,16,0.05)",
-      }}
-    >
-      <div className="flex items-start justify-between gap-1">
-        <span
-          className="font-playfair text-xl font-bold leading-none"
-          style={{ color: isSelected ? "#fff" : "var(--dark)" }}
-        >
-          #{table.number}
-        </span>
-        {badge}
-      </div>
-      {table.label && (
-        <p className="text-[10px] leading-tight" style={{ color: isSelected ? "rgba(255,255,255,0.75)" : "var(--muted)" }}>
-          {table.label}
-        </p>
-      )}
-      <div className="mt-auto flex items-center gap-1">
-        <Users size={11} style={{ color: isSelected ? "rgba(255,255,255,0.75)" : "var(--muted)" }} />
-        <span className="text-[11px] font-semibold" style={{ color: isSelected ? "rgba(255,255,255,0.85)" : "var(--dark)" }}>
-          {table.capacity} kişilik
-        </span>
-      </div>
-    </button>
-  );
-}
 
 function isValidPhone(v) {
   const clean = v.replace(/[\s\-().]/g, "");
@@ -285,11 +235,6 @@ export default function ReservationForm() {
     : availability.areas;
   const showAreaSelector = !!form.time && areaSource.length > 0;
 
-  // Seçili kat verisi
-  const selectedAreaData = form.tableArea
-    ? areaSource.find((a) => a.area === form.tableArea)
-    : null;
-
   const partyNum = Number(form.partySize) || 0;
 
   return (
@@ -366,56 +311,6 @@ export default function ReservationForm() {
             </div>
           )}
 
-          {/* ── Masa Seçimi (kat seçildikten sonra) ── */}
-          {selectedAreaData && (
-            <div>
-              <div className="mb-3 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => { set("tableArea", ""); set("tableNumber", null); }}
-                  className="flex items-center gap-1 text-xs font-semibold transition hover:opacity-70"
-                  style={{ color: "var(--bordeaux)" }}
-                >
-                  <ChevronLeft size={13} />
-                  {selectedAreaData.areaLabel} — Masa Seçin
-                </button>
-                {form.tableNumber && (
-                  <button
-                    type="button"
-                    onClick={() => set("tableNumber", null)}
-                    className="flex items-center gap-1 text-[10px] font-semibold text-[var(--muted)] transition hover:opacity-70"
-                  >
-                    <X size={10} /> Seçimi kaldır
-                  </button>
-                )}
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4">
-                {selectedAreaData.tables.map((table) => (
-                  <TableCard
-                    key={table.number}
-                    table={table}
-                    selected={form.tableNumber}
-                    onSelect={(n) => set("tableNumber", n)}
-                    partySize={partyNum}
-                  />
-                ))}
-              </div>
-
-              {form.tableNumber && (
-                <p className="mt-2 text-xs text-[var(--muted)]">
-                  Seçili: <strong className="text-[var(--bordeaux)]">{selectedAreaData.areaLabel} · Masa #{form.tableNumber}</strong>
-                  {" · "}{selectedAreaData.tables.find((t) => t.number === form.tableNumber)?.capacity} kişilik
-                </p>
-              )}
-
-              {!form.tableNumber && partyNum > 0 && selectedAreaData.tables.every((t) => t.isBooked || t.capacity < partyNum) && (
-                <p className="mt-2 text-xs text-amber-600">
-                  Bu katta {partyNum} kişilik müsait masa kalmadı. Lütfen başka bir kat seçin.
-                </p>
-              )}
-            </div>
-          )}
 
           {/* ── Ad – Telefon – E-posta ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
