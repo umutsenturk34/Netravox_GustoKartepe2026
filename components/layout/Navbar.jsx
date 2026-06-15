@@ -97,7 +97,7 @@ function NavItem({ item, isLight }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className={`whitespace-nowrap flex items-center gap-1 text-sm font-bold tracking-[0.15em] uppercase transition ${textClass}`}
+          className={`whitespace-nowrap flex items-center gap-1 text-[11px] font-bold tracking-[0.15em] uppercase transition ${textClass}`}
           aria-expanded={open}
           aria-haspopup="true"
         >
