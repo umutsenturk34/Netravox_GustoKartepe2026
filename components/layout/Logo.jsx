@@ -24,7 +24,7 @@ export function Logo({ light = false, logoUrl = null, logoUrlDark = null }) {
         <img
           src={src}
           alt={SITE.name}
-          className="h-[64px] w-auto object-contain"
+          className="h-[76px] w-auto object-contain"
           style={{ imageRendering: 'crisp-edges' }}
         />
       </Link>
@@ -36,7 +36,7 @@ export function Logo({ light = false, logoUrl = null, logoUrlDark = null }) {
 
   return (
     <Link href="/" className="inline-flex items-center gap-3">
-      <TreeIcon className={`h-14 w-14 shrink-0 ${color}`} />
+      <TreeIcon className={`h-16 w-16 shrink-0 ${color}`} />
       <span className="flex flex-col leading-none">
         <span
           className={`text-[1.75rem] font-black tracking-[0.22em] uppercase leading-none ${color}`}

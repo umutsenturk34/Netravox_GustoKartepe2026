@@ -76,7 +76,7 @@ function NavItem({ item, isLight }) {
   if (coming) {
     return (
       <div className="relative flex items-center gap-1">
-        <span className={`whitespace-nowrap text-[11px] font-bold tracking-[0.15em] uppercase opacity-50 cursor-default ${textClass}`}>
+        <span className={`whitespace-nowrap text-[12px] font-bold tracking-[0.15em] uppercase opacity-50 cursor-default ${textClass}`}>
           {item.label}
         </span>
         <span className="rounded-full bg-[var(--bordeaux)]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[var(--bordeaux)]">
@@ -97,7 +97,7 @@ function NavItem({ item, isLight }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className={`whitespace-nowrap flex items-center gap-1 text-[11px] font-bold tracking-[0.15em] uppercase transition ${textClass}`}
+          className={`whitespace-nowrap flex items-center gap-1 text-[12px] font-bold tracking-[0.15em] uppercase transition ${textClass}`}
           aria-expanded={open}
           aria-haspopup="true"
         >
@@ -115,7 +115,7 @@ function NavItem({ item, isLight }) {
   return (
     <Link
       href={item.url}
-      className={`whitespace-nowrap text-[11px] font-bold tracking-[0.15em] uppercase transition ${textClass}`}
+      className={`whitespace-nowrap text-[12px] font-bold tracking-[0.15em] uppercase transition ${textClass}`}
     >
       {item.label}
     </Link>
@@ -226,7 +226,7 @@ export default function Navbar({ items, company }) {
       <div className="h-[3px] bg-[var(--dark)]" />
 
       {/* ── Ana satır ── */}
-      <div className="container-shell flex h-[72px] items-center justify-between gap-6">
+      <div className="container-shell flex h-[84px] items-center justify-between gap-6">
         <Logo
           light={isLight}
           logoUrl={company?.branding?.logoLight}
@@ -243,7 +243,7 @@ export default function Navbar({ items, company }) {
         <div className="hidden lg:block shrink-0">
           <Link
             href="/restoran/rezervasyon"
-            className="inline-flex items-center rounded bg-[var(--bordeaux)] px-5 py-3 text-[10px] font-extrabold tracking-[0.25em] text-white uppercase transition hover:bg-[#6b1215]"
+            className="inline-flex items-center rounded bg-[var(--bordeaux)] px-5 py-3 text-[11px] font-extrabold tracking-[0.25em] text-white uppercase transition hover:bg-[#6b1215]"
           >
             Rezervasyon Yap
           </Link>
