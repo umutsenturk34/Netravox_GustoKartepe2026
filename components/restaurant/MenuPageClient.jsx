@@ -26,11 +26,11 @@ export function FeaturedItem({ item }) {
   return (
     <div className="mb-6 overflow-hidden rounded-2xl border border-[var(--beige)] bg-white shadow-[0_8px_32px_rgba(30,24,16,0.07)]">
       <div className="grid md:grid-cols-[1.6fr_1fr]">
-        <div className="relative bg-[#e8dfd0] overflow-hidden">
+        <div className="relative h-[260px] md:h-[300px] bg-[#e8dfd0] overflow-hidden">
           {img ? (
-            <Image src={img} alt={name} width={0} height={0} sizes="(max-width:768px) 100vw, 55vw" className="w-full h-auto block" />
+            <Image src={img} alt={name} fill className="object-cover object-center" sizes="(max-width:768px) 100vw, 55vw" />
           ) : (
-            <div className="min-h-[280px] flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-5xl opacity-25">🍽️</span>
             </div>
           )}
