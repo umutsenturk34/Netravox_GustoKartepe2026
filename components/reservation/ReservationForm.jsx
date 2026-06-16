@@ -96,7 +96,8 @@ function TextInput({ label, error, loading, ...props }) {
 /* ── Alan (kat) kartı ─────────────────────────────────────────────────────── */
 function AreaCard({ area, selected, onSelect, partySize }) {
   const Icon = AREA_ICONS[area.area] || Layers;
-  const tooSmall  = partySize > 0 && area.maxCapacity > 0 && area.maxCapacity < partySize;
+  // tooSmall: kalan kişilik kapasite seçilen grup büyüklüğünden az
+  const tooSmall  = partySize > 0 && area.available != null && area.available < partySize;
   const isDisabled = area.isFull || tooSmall;
   const isSelected = selected === area.area;
 
@@ -106,10 +107,10 @@ function AreaCard({ area, selected, onSelect, partySize }) {
     statusText  = "Dolu";
     statusColor = "#dc2626";
   } else if (tooSmall) {
-    statusText  = `Max ${area.maxCapacity} kişi`;
+    statusText  = `Kalan ${area.available} kişilik`;
     statusColor = "#9ca3af";
   } else if (area.available != null) {
-    statusText  = `${area.available} masa müsait`;
+    statusText  = `${area.available} kişilik müsait`;
     statusColor = "#16a34a";
   }
 
