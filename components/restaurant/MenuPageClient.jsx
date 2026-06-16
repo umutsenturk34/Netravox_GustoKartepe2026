@@ -45,7 +45,7 @@ export function FeaturedItem({ item }) {
             <h3 className="text-2xl font-bold text-[var(--dark)]" style={{ fontFamily: "var(--font-playfair)" }}>
               {name}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{desc}</p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--muted)] whitespace-pre-wrap">{desc}</p>
           </div>
           <div className="mt-6 flex items-center justify-between border-t border-[var(--beige)] pt-5">
             <span className="text-xs uppercase tracking-widest text-[var(--muted)]">Fiyat</span>
@@ -66,11 +66,11 @@ export function CardItem({ item }) {
 
   return (
     <div className="flex items-start gap-4 py-5 border-b border-[var(--beige)] last:border-0">
-      <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-[#ede8e0]">
+      <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
         {img ? (
-          <Image src={img} alt={name} fill className="object-cover" sizes="64px" />
+          <Image src={img} alt={name} fill className="object-cover" sizes="96px" />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-xl opacity-25">🍽️</div>
+          <div className="absolute inset-0 flex items-center justify-center text-2xl opacity-20">🍽️</div>
         )}
       </div>
       <div className="flex-1 min-w-0">
@@ -81,12 +81,12 @@ export function CardItem({ item }) {
               <span className="ml-2 rounded-full bg-[var(--dark)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white align-middle">★</span>
             )}
           </h4>
-          <span className="shrink-0 text-sm font-bold whitespace-nowrap" style={{ color: "var(--dark)" }}>
+          <span className="shrink-0 text-base font-bold whitespace-nowrap" style={{ color: "var(--bordeaux)" }}>
             {price}
           </span>
         </div>
         {desc && (
-          <p className="mt-1 text-xs leading-relaxed line-clamp-2" style={{ color: "var(--bordeaux)" }}>
+          <p className="mt-1.5 text-xs leading-relaxed line-clamp-3 text-[var(--muted)]">
             {desc}
           </p>
         )}
@@ -131,11 +131,11 @@ function CategoryPreview({ category }) {
 
       {/* Önizleme kartları */}
       {previewItems.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 rounded-2xl border border-[var(--beige)] bg-white overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 rounded-2xl border border-[var(--beige)] bg-white overflow-hidden shadow-sm">
           {previewItems.map((item, i) => (
             <div
               key={item._id}
-              className={`px-6 ${i % 2 === 1 ? "md:border-l border-[var(--beige)]" : ""}`}
+              className={`px-7 ${i % 2 === 1 ? "md:border-l border-[var(--beige)]" : ""}`}
             >
               <CardItem item={item} />
             </div>
