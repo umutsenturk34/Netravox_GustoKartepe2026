@@ -26,11 +26,11 @@ export function FeaturedItem({ item }) {
   return (
     <div className="mb-6 overflow-hidden rounded-2xl border border-[var(--beige)] bg-white shadow-[0_8px_32px_rgba(30,24,16,0.07)]">
       <div className="grid md:grid-cols-[1.6fr_1fr]">
-        <div className="relative bg-[#e8dfd0] overflow-hidden max-h-[340px]">
+        <div className="relative bg-[#e8dfd0] aspect-[4/3] md:aspect-auto md:min-h-[320px]">
           {img ? (
-            <Image src={img} alt={name} width={0} height={0} sizes="(max-width:768px) 100vw, 55vw" className="w-full h-auto block" />
+            <Image src={img} alt={name} fill className="object-cover object-center" sizes="(max-width:768px) 100vw, 55vw" />
           ) : (
-            <div className="h-[280px] flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-5xl opacity-25">🍽️</span>
             </div>
           )}
@@ -65,10 +65,10 @@ export function CardItem({ item }) {
   const price = formatCurrency(item.price, item.currency || "TRY");
 
   return (
-    <div className="flex items-start gap-5 py-7 border-b border-[var(--beige)] last:border-0">
-      <div className="relative w-32 h-32 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
+    <div className="flex items-start gap-5 py-8 border-b border-[var(--beige)] last:border-0">
+      <div className="relative w-40 h-40 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
         {img ? (
-          <Image src={img} alt={name} fill className="object-cover" sizes="128px" />
+          <Image src={img} alt={name} fill className="object-cover object-center" sizes="160px" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-20">🍽️</div>
         )}
