@@ -68,6 +68,9 @@ export async function generateMetadata() {
       : undefined,
     robots: { index: true, follow: true },
     alternates: { canonical: SITE.url },
+    icons: company?.branding?.favicon
+      ? { icon: company.branding.favicon, shortcut: company.branding.favicon, apple: company.branding.favicon }
+      : undefined,
   };
 }
 
