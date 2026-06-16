@@ -65,28 +65,28 @@ export function CardItem({ item }) {
   const price = formatCurrency(item.price, item.currency || "TRY");
 
   return (
-    <div className="flex items-start gap-4 py-5 border-b border-[var(--beige)] last:border-0">
-      <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
+    <div className="flex items-start gap-5 py-7 border-b border-[var(--beige)] last:border-0">
+      <div className="relative w-32 h-32 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
         {img ? (
-          <Image src={img} alt={name} fill className="object-cover" sizes="96px" />
+          <Image src={img} alt={name} fill className="object-cover" sizes="128px" />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-2xl opacity-20">🍽️</div>
+          <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-20">🍽️</div>
         )}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-3">
-          <h4 className="text-sm font-bold text-[var(--dark)] leading-snug">
+          <h4 className="text-base font-bold text-[var(--dark)] leading-snug">
             {name}
             {item.isFeatured && (
               <span className="ml-2 rounded-full bg-[var(--dark)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white align-middle">★</span>
             )}
           </h4>
-          <span className="shrink-0 text-base font-bold whitespace-nowrap" style={{ color: "var(--bordeaux)" }}>
+          <span className="shrink-0 text-lg font-bold whitespace-nowrap" style={{ color: "var(--bordeaux)" }}>
             {price}
           </span>
         </div>
         {desc && (
-          <p className="mt-1.5 text-xs leading-relaxed line-clamp-3 text-[var(--muted)]">
+          <p className="mt-2 text-sm leading-relaxed line-clamp-3 text-[var(--muted)]">
             {desc}
           </p>
         )}
