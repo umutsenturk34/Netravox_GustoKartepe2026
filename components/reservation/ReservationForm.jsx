@@ -28,6 +28,19 @@ function getToday() {
   return new Date().toISOString().split("T")[0];
 }
 
+function getEndTimeOptions(startTime) {
+  if (!startTime) return [];
+  const [h, m] = startTime.split(":").map(Number);
+  const start = h * 60 + m;
+  return [30, 60, 90, 120]
+    .map((add) => {
+      const total = start + add;
+      if (total >= 24 * 60) return null;
+      return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+    })
+    .filter(Boolean);
+}
+
 function IconSelect({ icon: Icon, label, children, ...props }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -129,7 +142,7 @@ function isValidEmail(v) {
 
 export default function ReservationForm() {
   const [form, setForm] = useState({
-    partySize: "", date: "", time: "",
+    partySize: "", date: "", time: "", endTime: "",
     tableArea: "", tableNumber: null,
     fullName: "", phone: "", email: "",
     note: "", kvkkConsent: false,
@@ -213,7 +226,7 @@ export default function ReservationForm() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || data.message || "Rezervasyon oluşturulamadı.");
       setResult({ ok: true });
-      setForm({ partySize: "", date: "", time: "", tableArea: "", tableNumber: null, fullName: "", phone: "", email: "", note: "", kvkkConsent: false });
+      setForm({ partySize: "", date: "", time: "", endTime: "", tableArea: "", tableNumber: null, fullName: "", phone: "", email: "", note: "", kvkkConsent: false });
       setErrors({ phone: "", email: "" });
       setTouched({ phone: false, email: false });
       setAvailability({ slots: [], areas: [] });
@@ -258,8 +271,8 @@ export default function ReservationForm() {
       ) : (
         <form onSubmit={handleSubmit} className="mt-7 space-y-5">
 
-          {/* ── Satır 1: Kişi / Tarih / Saat ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* ── Satır 1: Kişi / Tarih ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <IconSelect icon={Users} label="Kişi Sayısı" value={form.partySize}
               onChange={(e) => { set("partySize", Number(e.target.value)); set("tableArea", ""); set("tableNumber", null); }}
               required
@@ -270,12 +283,22 @@ export default function ReservationForm() {
 
             <DatePicker
               value={form.date}
-              onChange={(val) => { set("date", val); set("time", ""); set("tableArea", ""); set("tableNumber", null); }}
+              onChange={(val) => { set("date", val); set("time", ""); set("endTime", ""); set("tableArea", ""); set("tableNumber", null); }}
               min={getToday()}
             />
+          </div>
 
-            <IconSelect icon={Clock} label="Saat" value={form.time}
-              onChange={(e) => { set("time", e.target.value); set("tableArea", ""); set("tableNumber", null); }}
+          {/* ── Satır 2: Başlangıç / Bitiş Saati ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <IconSelect icon={Clock} label="Başlangıç Saati" value={form.time}
+              onChange={(e) => {
+                const t = e.target.value;
+                const opts = getEndTimeOptions(t);
+                set("time", t);
+                set("endTime", opts[1] || opts[0] || ""); // varsayılan +1 saat
+                set("tableArea", "");
+                set("tableNumber", null);
+              }}
               required disabled={!form.date || loadingSlots}
             >
               <option value="">{slotLabel}</option>
@@ -285,6 +308,22 @@ export default function ReservationForm() {
                   <option key={slot.time} value={slot.time} disabled={isFull} style={isFull ? { color: "#9ca3af" } : {}}>
                     {slot.time}{isFull ? " — Dolu" : ""}
                   </option>
+                );
+              })}
+            </IconSelect>
+
+            <IconSelect icon={Clock} label="Bitiş Saati (maks. 2 saat)" value={form.endTime}
+              onChange={(e) => set("endTime", e.target.value)}
+              required disabled={!form.time}
+            >
+              <option value="">{form.time ? "Seçiniz" : "Önce başlangıç saati seçin"}</option>
+              {getEndTimeOptions(form.time).map((t) => {
+                const [sh, sm] = form.time.split(":").map(Number);
+                const [eh, em] = t.split(":").map(Number);
+                const diff = (eh * 60 + em) - (sh * 60 + sm);
+                const label = diff === 60 ? "1 saat" : diff === 120 ? "2 saat" : `${diff} dk`;
+                return (
+                  <option key={t} value={t}>{t} ({label})</option>
                 );
               })}
             </IconSelect>
