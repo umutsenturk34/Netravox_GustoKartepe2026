@@ -65,10 +65,10 @@ export function CardItem({ item }) {
   const price = formatCurrency(item.price, item.currency || "TRY");
 
   return (
-    <div className="flex items-start gap-5 py-8 border-b border-[var(--beige)] last:border-0">
-      <div className="relative w-40 h-40 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
+    <div className="flex items-start gap-4 py-7 border-b border-[var(--beige)] last:border-0">
+      <div className="relative w-28 h-28 lg:w-36 lg:h-36 rounded-xl overflow-hidden shrink-0 bg-[#ede8e0]">
         {img ? (
-          <Image src={img} alt={name} fill className="object-cover object-center" sizes="160px" />
+          <Image src={img} alt={name} fill className="object-cover object-center" sizes="(max-width:1024px) 112px, 144px" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-20">🍽️</div>
         )}
@@ -86,7 +86,7 @@ export function CardItem({ item }) {
           </span>
         </div>
         {desc && (
-          <p className="mt-2 text-sm leading-relaxed line-clamp-3 text-[var(--muted)]">
+          <p className="mt-2 text-sm leading-relaxed break-words text-[var(--muted)]">
             {desc}
           </p>
         )}
@@ -131,11 +131,11 @@ function CategoryPreview({ category }) {
 
       {/* Önizleme kartları */}
       {previewItems.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 rounded-2xl border border-[var(--beige)] bg-white overflow-hidden shadow-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 rounded-2xl border border-[var(--beige)] bg-white overflow-hidden shadow-sm">
           {previewItems.map((item, i) => (
             <div
               key={item._id}
-              className={`px-7 ${i % 2 === 1 ? "md:border-l border-[var(--beige)]" : ""}`}
+              className={`px-7 ${i % 2 === 1 ? "lg:border-l border-[var(--beige)]" : ""}`}
             >
               <CardItem item={item} />
             </div>
