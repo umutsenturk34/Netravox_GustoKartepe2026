@@ -41,11 +41,14 @@ function getEndTimeOptions(startTime) {
     .filter(Boolean);
 }
 
-function IconSelect({ icon: Icon, label, children, ...props }) {
+function IconSelect({ icon: Icon, label, children, loading, ...props }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-[var(--dark)]">{label}</label>
-      <div className="relative">
+      <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--dark)]">
+        {label}
+        {loading && <Loader2 size={11} className="animate-spin" style={{ color: "var(--muted)" }} />}
+      </label>
+      <div className={`relative transition-opacity ${loading ? "opacity-60" : ""}`}>
         <Icon size={15} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }} />
         <select
           {...props}
@@ -53,24 +56,33 @@ function IconSelect({ icon: Icon, label, children, ...props }) {
         >
           {children}
         </select>
-        <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }} />
+        {loading
+          ? <Loader2 size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 animate-spin" style={{ color: "var(--muted)" }} />
+          : <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }} />
+        }
       </div>
     </div>
   );
 }
 
-function TextInput({ label, error, ...props }) {
+function TextInput({ label, error, loading, ...props }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-[var(--dark)]">{label}</label>
-      <input
-        {...props}
-        className={`w-full rounded-xl border bg-[var(--cream)] px-4 py-3 text-sm text-[var(--dark)] outline-none transition placeholder:text-[var(--muted)] focus:ring-2 ${
-          error
-            ? "border-red-400 focus:border-red-400 focus:ring-red-400/10"
-            : "border-[var(--beige)] focus:border-[var(--bordeaux)] focus:ring-[var(--bordeaux)]/10"
-        }`}
-      />
+      <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--dark)]">
+        {label}
+        {loading && <Loader2 size={11} className="animate-spin" style={{ color: "var(--muted)" }} />}
+      </label>
+      <div className={`relative transition-opacity ${loading ? "opacity-60" : ""}`}>
+        <input
+          {...props}
+          className={`w-full rounded-xl border bg-[var(--cream)] px-4 py-3 text-sm text-[var(--dark)] outline-none transition placeholder:text-[var(--muted)] focus:ring-2 ${
+            error
+              ? "border-red-400 focus:border-red-400 focus:ring-red-400/10"
+              : "border-[var(--beige)] focus:border-[var(--bordeaux)] focus:ring-[var(--bordeaux)]/10"
+          }`}
+        />
+        {loading && <Loader2 size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 animate-spin" style={{ color: "var(--muted)" }} />}
+      </div>
       {error && (
         <p className="flex items-center gap-1 text-[11px] font-medium text-red-500">
           <AlertCircle size={11} className="shrink-0" />
@@ -269,7 +281,7 @@ export default function ReservationForm() {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+        <form onSubmit={handleSubmit} className={`mt-7 space-y-5 transition-opacity ${submitting ? "pointer-events-none opacity-60" : ""}`}>
 
           {/* ── Satır 1: Kişi / Tarih ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -300,6 +312,7 @@ export default function ReservationForm() {
                 set("tableNumber", null);
               }}
               required disabled={!form.date || loadingSlots}
+              loading={loadingSlots}
             >
               <option value="">{slotLabel}</option>
               {availability.slots.map((slot) => {
@@ -315,6 +328,7 @@ export default function ReservationForm() {
             <IconSelect icon={Clock} label="Bitiş Saati (maks. 2 saat)" value={form.endTime}
               onChange={(e) => set("endTime", e.target.value)}
               required disabled={!form.time}
+              loading={loadingSlots && !form.time}
             >
               <option value="">{form.time ? "Seçiniz" : "Önce başlangıç saati seçin"}</option>
               {getEndTimeOptions(form.time).map((t) => {
@@ -354,7 +368,8 @@ export default function ReservationForm() {
           {/* ── Ad – Telefon – E-posta ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TextInput label="Ad Soyad" type="text" placeholder="Örn: Ahmet Yılmaz"
-              value={form.fullName} onChange={(e) => set("fullName", e.target.value)} required />
+              value={form.fullName} onChange={(e) => set("fullName", e.target.value)}
+              loading={submitting} required />
             <TextInput
               label="Telefon Numarası"
               type="tel"
@@ -363,6 +378,7 @@ export default function ReservationForm() {
               onChange={handlePhoneChange}
               onBlur={handlePhoneBlur}
               error={touched.phone ? errors.phone : ""}
+              loading={submitting}
               required
               maxLength={20}
             />
@@ -375,6 +391,7 @@ export default function ReservationForm() {
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             error={touched.email ? errors.email : ""}
+            loading={submitting}
             inputMode="email"
             autoComplete="email"
           />
