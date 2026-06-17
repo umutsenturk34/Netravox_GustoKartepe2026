@@ -6,6 +6,24 @@ import { getCompany, getGallery, getFeaturedGallery, getPage } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 
+function ImageGallerySchema({ images, company }) {
+  if (!images?.length) return null;
+  const companyName = company?.name || SITE.name;
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: `${companyName} Galeri`,
+    url: `${SITE.url}/restoran/galeri`,
+    image: images.slice(0, 20).map((img) => ({
+      "@type": "ImageObject",
+      url: img.url,
+      name: img.alt || companyName,
+      description: img.caption || undefined,
+    })),
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+
 export async function generateMetadata() {
   const page = await getPage("gallery");
   return buildPageMetadata(page, {
@@ -27,6 +45,7 @@ export default async function GaleriPage() {
           { name: "Galeri", url: "/restoran/galeri" },
         ]}
       />
+      <ImageGallerySchema images={images ?? []} company={company} />
       <Breadcrumb items={[
         { name: "Ana Sayfa", url: "/" },
         { name: "Restoran", url: "/restoran" },

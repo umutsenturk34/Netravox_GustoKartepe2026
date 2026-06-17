@@ -1,10 +1,11 @@
 import { SITE } from "@/lib/siteConfig";
 
-export function MenuSchema({ categories }) {
+export function MenuSchema({ categories, company }) {
+  const companyName = company?.name || SITE.name;
   const schema = {
     "@context": "https://schema.org",
     "@type": "Menu",
-    name: "Gusto Kartepe Menusu",
+    name: `${companyName} Menüsü`,
     url: `${SITE.url}/restoran/menu`,
     hasMenuSection: (categories || []).map((category) => ({
       "@type": "MenuSection",

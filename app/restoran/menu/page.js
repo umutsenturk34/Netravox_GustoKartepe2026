@@ -40,7 +40,7 @@ export default async function MenuPage() {
           { name: "Menü", url: "/restoran/menu" },
         ]}
       />
-      <MenuSchema categories={categories ?? []} />
+      <MenuSchema categories={categories ?? []} company={company} />
       <Breadcrumb items={[
         { name: "Ana Sayfa", url: "/" },
         { name: "Restoran", url: "/restoran" },
