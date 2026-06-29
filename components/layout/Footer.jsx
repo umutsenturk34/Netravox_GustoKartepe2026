@@ -96,7 +96,7 @@ export default function Footer({ company, navItems = [] }) {
 
   return (
     <footer className="bg-[var(--cream)] pb-8 pt-8 text-[var(--dark)]">
-      <div className="container-shell grid gap-10 border-t border-[var(--beige)] pt-6 lg:grid-cols-[1.1fr_0.9fr_1fr_0.8fr]">
+      <div className="container-shell grid gap-10 border-t border-[var(--beige)] pt-6 pb-10 lg:grid-cols-[1.1fr_0.9fr_1fr_0.8fr]">
 
         {/* Marka */}
         <div>
@@ -112,7 +112,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* Hızlı Bağlantılar — dinamik */}
         <div>
-          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">
+          <h3 className="text-xs tracking-[0.08em] text-[var(--bordeaux)] uppercase">
             {labels.links}
           </h3>
           <nav className="mt-4 flex flex-col gap-2 text-sm text-[var(--muted)]">
@@ -134,7 +134,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* İletişim */}
         <div>
-          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">{labels.contact}</h3>
+          <h3 className="text-xs tracking-[0.08em] text-[var(--bordeaux)] uppercase">{labels.contact}</h3>
           <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
             {contact.phone && (
               <a
@@ -165,7 +165,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* Çalışma Saatleri + Sosyal */}
         <div>
-          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">
+          <h3 className="text-xs tracking-[0.08em] text-[var(--bordeaux)] uppercase">
             {labels.hours}
           </h3>
           <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
