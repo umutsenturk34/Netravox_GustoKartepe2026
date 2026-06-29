@@ -149,7 +149,7 @@ function MobileNavItem({ item, onClose }) {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className={`flex w-full items-center justify-between py-4 text-xl font-playfair ${
+          className={`flex w-full items-center justify-between py-4 text-xl font-playfair focus:outline-none ${
             isActive ? "text-[var(--bordeaux)]" : "text-[var(--dark)]"
           }`}
         >
