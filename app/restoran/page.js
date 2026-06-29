@@ -32,7 +32,7 @@ export default async function RestoranPage() {
   const [company, gallery, menu, page] = await Promise.all([getCompany(), getGallery(), getMenu(), getPage("generic")]);
 
   const content       = company?.content || {};
-  const heroImage     = company?.heroImage || company?.coverImage || (gallery || [])[0]?.url || null;
+  const heroImage     = content.heroImage || (gallery || [])[0]?.url || null;
   const featuredDishes = getFeaturedMenuItems(menu || []).slice(0, 3);
 
   // Build moments from panel content or gallery images (no Unsplash fallback)
