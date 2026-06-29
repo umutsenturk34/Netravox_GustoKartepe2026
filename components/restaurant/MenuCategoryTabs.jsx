@@ -7,7 +7,7 @@ import { getLocalizedText } from "@/lib/utils";
 export default function MenuCategoryTabs({ categories, activeCategory, onSelect }) {
   const scrollRef = useRef(null);
   const [canLeft, setCanLeft]   = useState(false);
-  const [canRight, setCanRight] = useState(false);
+  const [canRight, setCanRight] = useState(true);
 
   const update = () => {
     const el = scrollRef.current;
@@ -17,7 +17,7 @@ export default function MenuCategoryTabs({ categories, activeCategory, onSelect 
   };
 
   useEffect(() => {
-    update();
+    requestAnimationFrame(() => requestAnimationFrame(update));
     const el = scrollRef.current;
     if (!el) return;
     el.addEventListener("scroll", update, { passive: true });
