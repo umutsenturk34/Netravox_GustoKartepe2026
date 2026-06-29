@@ -5,22 +5,32 @@ import { homeImagery } from '@/lib/homeData';
 import { getLocalizedText } from '@/lib/utils';
 
 export default function HeroSection({ company }) {
+  const content = company?.content || {};
+  const heroVideo = content.heroVideo || null;
+  const heroImage = company?.heroImage || content.heroImage || company?.coverImage || homeImagery.hero;
+
   return (
     <section className="relative overflow-hidden bg-[var(--hero-dark)] text-white">
       <div className="absolute inset-0">
-        <Image
-          src={
-            company?.heroImage ||
-            company?.content?.heroImage ||
-            company?.coverImage ||
-            homeImagery.hero
-          }
-          alt="Gusto Kartepe doga manzarasi"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        {heroVideo ? (
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <Image
+            src={heroImage}
+            alt="Gusto Kartepe doga manzarasi"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-[linear-gradient(170deg,rgba(12,10,8,0.38)_0%,rgba(12,10,8,0.72)_100%)]" />
       </div>
       <div className="container-shell relative flex min-h-[calc(100vh-4rem)] items-center justify-center py-16 text-center">

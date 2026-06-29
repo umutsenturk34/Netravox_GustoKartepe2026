@@ -27,7 +27,16 @@ function HeroBlock({ data }) {
     <section
       className={`relative min-h-[92vh] flex ${alignClass} overflow-hidden`}
     >
-      {safeUrl(data.image) && (
+      {safeUrl(data.video) ? (
+        <video
+          src={safeUrl(data.video)}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : safeUrl(data.image) ? (
         <Image
           src={safeUrl(data.image)}
           alt={title || 'Hero'}
@@ -36,7 +45,7 @@ function HeroBlock({ data }) {
           priority
           sizes="100vw"
         />
-      )}
+      ) : null}
       <div className="absolute inset-0" style={{ background: gradientDir }} />
       <div
         className={`relative z-10 container-shell ${paddingClass} max-w-2xl mr-auto`}
