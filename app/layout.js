@@ -146,7 +146,7 @@ export default async function RootLayout({ children }) {
         <DynamicSchemas schemas={globalSchemas} />
         <PopupManager popups={Array.isArray(popups) ? popups : []} />
         <Navbar items={items.length ? items : fallbackNavigation} company={company} />
-        <div className="min-h-screen pt-[75px]">{children}</div>
+        <div className="min-h-screen pt-[87px]">{children}</div>
         <Footer company={company} navItems={footerItems.length ? footerItems : (items.length ? items : fallbackNavigation)} />
         <DraftModeBanner />
       </body>
