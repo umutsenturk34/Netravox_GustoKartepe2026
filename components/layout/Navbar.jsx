@@ -160,20 +160,20 @@ function MobileNavItem({ item, onClose }) {
           />
         </button>
         {expanded && (
-          <div className="mt-2 ml-4 flex flex-col gap-2 border-l-2 border-[var(--beige)] pl-4">
+          <div className="mb-3 flex flex-col">
             {item.children.map((child, i) => {
               const childComing = child.url === "#" || !child.url;
               return childComing ? (
-                <span key={i} className="text-sm text-[var(--muted)]">
-                  {child.label}{" "}
-                  <span className="text-[var(--bordeaux)] text-xs">(Yakında)</span>
-                </span>
+                <div key={i} className="flex items-center gap-2 border-t border-[var(--beige)] py-3 pl-5">
+                  <span className="text-lg text-[var(--muted)]">{child.label}</span>
+                  <span className="text-xs text-[var(--bordeaux)]">(Yakında)</span>
+                </div>
               ) : (
                 <Link
                   key={i}
                   href={child.url}
                   onClick={onClose}
-                  className="text-base font-medium text-[var(--dark)] hover:text-[var(--bordeaux)]"
+                  className="border-t border-[var(--beige)] py-3 pl-5 text-lg text-[var(--dark)] transition-colors hover:text-[var(--bordeaux)]"
                 >
                   {child.label}
                 </Link>
