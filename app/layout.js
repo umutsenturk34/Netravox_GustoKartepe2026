@@ -6,6 +6,7 @@ import { DraftModeBanner } from "@/components/layout/DraftModeBanner";
 import { DynamicSchemas } from "@/components/layout/DynamicSchemas";
 import Navbar from "@/components/layout/Navbar";
 import PopupManager from "@/components/ui/PopupManager";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import { RestaurantSchema } from "@/components/seo/RestaurantSchema";
 import { getCompany, getFooterNavigation, getNavigation, getPopups, getSchemas } from "@/lib/api";
 import { fallbackNavigation } from "@/lib/content";
@@ -141,6 +142,7 @@ export default async function RootLayout({ children }) {
         <Navbar items={items.length ? items : fallbackNavigation} company={company} />
         <div className="min-h-screen pt-[87px]">{children}</div>
         <Footer company={company} navItems={footerItems.length ? footerItems : (items.length ? items : fallbackNavigation)} />
+        <ScrollToTop />
         <DraftModeBanner />
       </body>
     </html>

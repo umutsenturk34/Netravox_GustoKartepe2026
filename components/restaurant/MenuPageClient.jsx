@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { formatCurrency, getLocalizedText, normalizeImage } from "@/lib/utils";
 
 export function slugify(text) {
@@ -162,6 +162,29 @@ function CategoryPreview({ category }) {
 
 // ── Sticky tabs ───────────────────────────────────────────────────────────────
 function CategoryTabs({ categories, activeId }) {
+  const scrollRef = useRef(null);
+  const [canLeft, setCanLeft]   = useState(false);
+  const [canRight, setCanRight] = useState(true);
+
+  const updateArrows = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanLeft(el.scrollLeft > 4);
+    setCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    requestAnimationFrame(() => requestAnimationFrame(updateArrows));
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    const ro = new ResizeObserver(updateArrows);
+    ro.observe(el);
+    return () => { el.removeEventListener("scroll", updateArrows); ro.disconnect(); };
+  }, [categories]);
+
+  const slide = (dir) => scrollRef.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
+
   const scrollToSection = (slug) => {
     const el = document.getElementById(`cat-${slug}`);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -170,26 +193,57 @@ function CategoryTabs({ categories, activeId }) {
   return (
     <div className="sticky top-[75px] z-20 bg-[var(--cream)] border-b border-[var(--beige)] py-3">
       <div className="container-shell">
-        <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-none">
-          {categories.map((cat) => {
-            const name = getLocalizedText(cat.name, "");
-            const slug = slugify(name);
-            const id   = `cat-${slug}`;
-            return (
-              <button
-                key={cat._id}
-                type="button"
-                onClick={() => scrollToSection(slug)}
-                className={`whitespace-nowrap rounded-full px-5 py-2 text-xs font-bold tracking-[0.15em] uppercase transition-all shrink-0 ${
-                  activeId === id
-                    ? "bg-[var(--bordeaux)] text-white shadow-sm"
-                    : "bg-white text-[var(--dark)] border border-[var(--beige)] hover:border-[var(--bordeaux)] hover:text-[var(--bordeaux)]"
-                }`}
-              >
-                {name}
-              </button>
-            );
-          })}
+        <div className="relative flex items-center">
+          {/* Sol fade */}
+          <div className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-[var(--cream)] to-transparent transition-opacity duration-200 ${canLeft ? "opacity-100" : "opacity-0"}`} />
+          {/* Sol buton */}
+          <button
+            type="button"
+            onClick={() => slide(-1)}
+            aria-label="Geri kaydır"
+            className={`absolute left-0 z-20 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-[var(--beige)] shadow-sm transition-all duration-200 hover:border-[var(--bordeaux)] hover:text-[var(--bordeaux)] ${canLeft ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          >
+            <ChevronLeft size={14} strokeWidth={2.5} />
+          </button>
+
+          {/* Scroll track */}
+          <div
+            ref={scrollRef}
+            className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-none"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {categories.map((cat) => {
+              const name = getLocalizedText(cat.name, "");
+              const slug = slugify(name);
+              const id   = `cat-${slug}`;
+              return (
+                <button
+                  key={cat._id}
+                  type="button"
+                  onClick={() => scrollToSection(slug)}
+                  className={`whitespace-nowrap rounded-full px-5 py-2 text-xs font-bold tracking-[0.15em] uppercase transition-all shrink-0 ${
+                    activeId === id
+                      ? "bg-[var(--bordeaux)] text-white shadow-sm"
+                      : "bg-white text-[var(--dark)] border border-[var(--beige)] hover:border-[var(--bordeaux)] hover:text-[var(--bordeaux)]"
+                  }`}
+                >
+                  {name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Sağ fade */}
+          <div className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-[var(--cream)] to-transparent transition-opacity duration-200 ${canRight ? "opacity-100" : "opacity-0"}`} />
+          {/* Sağ buton */}
+          <button
+            type="button"
+            onClick={() => slide(1)}
+            aria-label="İleri kaydır"
+            className={`absolute right-0 z-20 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-[var(--beige)] shadow-sm transition-all duration-200 hover:border-[var(--bordeaux)] hover:text-[var(--bordeaux)] ${canRight ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          >
+            <ChevronRight size={14} strokeWidth={2.5} />
+          </button>
         </div>
       </div>
     </div>
