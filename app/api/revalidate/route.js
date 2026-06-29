@@ -10,7 +10,11 @@ export async function POST(req) {
     }
 
     const tagsToRevalidate =
-      tags || ["company", "navigation", "menu", "gallery", "testimonials", "team", "faqs", "blog", "redirects"];
+      tags || [
+        "company", "navigation", "menu", "gallery", "testimonials", "team", "faqs", "blog", "redirects",
+        "page-home", "page-about", "page-contact", "page-generic", "page-reservation", "page-menu", "page-gallery",
+        "featured",
+      ];
 
     tagsToRevalidate.forEach((tag) => revalidateTag(tag));
 
