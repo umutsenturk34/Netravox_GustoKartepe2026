@@ -2,15 +2,17 @@
 
 /* ── TAILWIND THEME OVERRIDE ── */
 @theme {
-  --font-sans:  var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:  var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-mono:  ui-monospace, 'Cascadia Code', monospace;
 }
 
 /* ── CSS VARIABLES ─────────────────────────────────────────────────── */
 
 :root {
-  --font-lato: var(--font-inter), sans-serif;
+  --font-lato:     var(--font-poppins), sans-serif;
+  --font-inter:    var(--font-poppins), sans-serif;
+  --font-playfair: var(--font-poppins), sans-serif;
 
   --cream: #fbfaf8;
   --dark: #1e1810;
@@ -40,14 +42,14 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-poppins), sans-serif;
 }
 
 body {
   margin: 0;
   background: var(--cream);
   color: var(--dark);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

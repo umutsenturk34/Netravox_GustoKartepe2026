@@ -1,4 +1,4 @@
-import { Inter, Playfair_Display } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Script from "next/script";
 
 import Footer from "@/components/layout/Footer";
@@ -14,18 +14,11 @@ import { getCompanyBranding, getNavigationItems } from "@/lib/utils";
 
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  variable: "--font-poppins",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export async function generateMetadata() {
@@ -91,7 +84,7 @@ export default async function RootLayout({ children }) {
     : items;
 
   return (
-    <html lang="tr" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="tr" className={poppins.variable}>
       <body
         style={{
           "--brand-primary": branding.primary,
