@@ -112,7 +112,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* Hızlı Bağlantılar — dinamik */}
         <div>
-          <h3 className="text-xs tracking-[0.3em] text-[var(--bordeaux)] uppercase">
+          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">
             {labels.links}
           </h3>
           <nav className="mt-4 flex flex-col gap-2 text-sm text-[var(--muted)]">
@@ -134,7 +134,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* İletişim */}
         <div>
-          <h3 className="text-xs tracking-[0.3em] text-[var(--bordeaux)] uppercase">{labels.contact}</h3>
+          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">{labels.contact}</h3>
           <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
             {contact.phone && (
               <a
@@ -165,7 +165,7 @@ export default function Footer({ company, navItems = [] }) {
 
         {/* Çalışma Saatleri + Sosyal */}
         <div>
-          <h3 className="text-xs tracking-[0.3em] text-[var(--bordeaux)] uppercase">
+          <h3 className="text-xs tracking-[0.15em] text-[var(--bordeaux)] uppercase">
             {labels.hours}
           </h3>
           <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
@@ -194,9 +194,9 @@ export default function Footer({ company, navItems = [] }) {
         </div>
       </div>
 
-      <div className="container-shell mt-8 flex items-center justify-between border-t border-[var(--beige)] pt-4 text-[11px] text-[var(--muted)]/60">
+      <div className="container-shell mt-16 flex items-center justify-between border-t border-[var(--beige)] pt-4 text-[11px] text-[var(--muted)]/60">
         <span>© {new Date().getFullYear()} {getLocalizedText(company?.name, SITE.name)}. Tüm hakları saklıdır.</span>
-        <span>Netravox tarafından geliştirildi</span>
+        <a href="https://netravox.com" target="_blank" rel="noreferrer" className="transition hover:text-[var(--bordeaux)]">Netravox tarafından geliştirildi</a>
       </div>
     </footer>
   );
