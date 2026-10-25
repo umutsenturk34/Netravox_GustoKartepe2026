@@ -11,7 +11,7 @@ import { RestaurantSchema } from "@/components/seo/RestaurantSchema";
 import { getCompany, getFooterNavigation, getNavigation, getPopups, getSchemas } from "@/lib/api";
 import { fallbackNavigation } from "@/lib/content";
 import { SITE } from "@/lib/siteConfig";
-import { getCompanyBranding, getNavigationItems } from "@/lib/utils";
+import { getCompanyBranding, getLocalizedText, getNavigationItems } from "@/lib/utils";
 
 import "./globals.css";
 
@@ -25,7 +25,7 @@ const poppins = Poppins({
 export async function generateMetadata() {
   const company = await getCompany();
   const siteName = company?.name || SITE.name;
-  const description = company?.description || SITE.description;
+  const description = getLocalizedText(company?.description) || SITE.description;
   const keywords = company?.seo?.keywords?.length
     ? company.seo.keywords
     : ["gusto kartepe", "serpme kahvalti", "kartepe restoran", "kocaeli restoran", "doga restorani", "izgara"];
