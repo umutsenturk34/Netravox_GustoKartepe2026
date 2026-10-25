@@ -39,6 +39,11 @@ const nextConfig = {
       { source: "/info", destination: "/iletisim", permanent: true },
       { source: "/menu", destination: "/restoran/menu", permanent: true },
       { source: "/rezervasyon", destination: "/restoran/rezervasyon", permanent: true },
+      // Eski Wix sitesinin adresleri (Google'daki bağlantılar 404 vermesin)
+      { source: "/experiences", destination: "/deneyimler", permanent: true },
+      { source: "/experience-details", destination: "/deneyimler", permanent: true },
+      { source: "/menus", destination: "/restoran/menu", permanent: true },
+      { source: "/sikayetveoneri", destination: "/iletisim", permanent: true },
     ];
   },
 };
