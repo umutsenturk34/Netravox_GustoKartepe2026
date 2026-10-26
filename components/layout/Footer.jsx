@@ -194,32 +194,24 @@ export default function Footer({ company, navItems = [] }) {
         </div>
       </div>
 
-      <div className="container-shell mt-16 border-t border-[var(--beige)] pt-4 pb-6 text-center text-[11px] text-[var(--muted)]/60 md:text-left">
+      <div className="container-shell mt-16 flex flex-col items-center gap-3 border-t border-[var(--beige)] pt-4 pb-6 text-[11px] text-[var(--muted)]/60 sm:flex-row sm:justify-between">
         <span>© {new Date().getFullYear()} {getLocalizedText(company?.name, SITE.name)}. Tüm hakları saklıdır.</span>
-      </div>
-
-      {/* Netravox imzası */}
-      <a
-        href="https://netravox.com"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Netravox tarafından geliştirildi"
-        className="group block bg-[var(--dark)] py-5"
-      >
-        <div className="container-shell flex items-center gap-3 sm:gap-6">
-          <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-transparent to-[var(--gold)]/40" />
-          <span className="flex shrink-0 items-baseline gap-2 whitespace-nowrap sm:gap-4">
-            <span className="text-[8px] font-light uppercase tracking-[0.25em] text-white/45 sm:text-[10px] sm:tracking-[0.35em]">Powered by</span>
-            <span
-              className="text-xs tracking-[0.18em] text-[#F5F5F5] sm:tracking-[0.25em] transition-colors group-hover:text-[var(--gold)] sm:text-lg"
-              style={{ fontFamily: "var(--font-michroma), var(--font-sans)" }}
-            >
-              NETRAVOX
-            </span>
+        <a
+          href="https://netravox.com"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Netravox tarafından geliştirildi"
+          className="group flex items-baseline gap-2 whitespace-nowrap"
+        >
+          <span className="text-[8px] font-light uppercase tracking-[0.3em] text-[var(--muted)]">Powered by</span>
+          <span
+            className="text-xs tracking-[0.25em] text-[var(--dark)] transition-colors group-hover:text-[var(--gold)]"
+            style={{ fontFamily: "var(--font-michroma), var(--font-sans)" }}
+          >
+            NETRAVOX
           </span>
-          <span className="h-px min-w-0 flex-1 bg-gradient-to-l from-transparent to-[var(--gold)]/40" />
-        </div>
-      </a>
+        </a>
+      </div>
     </footer>
   );
 }
