@@ -17,7 +17,7 @@ function QuoteDisplay({ item }) {
           &ldquo;
         </p>
         <blockquote
-          className="text-xl md:text-2xl italic leading-relaxed max-w-2xl mx-auto"
+          className="text-xl md:text-2xl italic leading-relaxed max-w-2xl mx-auto whitespace-pre-line"
           style={{ color: "var(--bordeaux)", fontFamily: "var(--font-playfair)" }}
         >
           {item.text}
@@ -37,7 +37,7 @@ function QuoteDisplay({ item }) {
         &ldquo;
       </p>
       <blockquote
-        className="text-lg md:text-xl italic text-[var(--dark)] max-w-2xl mx-auto leading-relaxed"
+        className="text-lg md:text-xl italic text-[var(--dark)] max-w-2xl mx-auto leading-relaxed whitespace-pre-line"
         style={{ fontFamily: "var(--font-playfair)" }}
       >
         &ldquo;{item.text}&rdquo;

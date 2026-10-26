@@ -56,12 +56,12 @@ function HeroBlock({ data }) {
           </p>
         )}
         {title && (
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[0.93]">
+          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[0.93] whitespace-pre-line">
             {title}
           </h1>
         )}
         {subtitle && (
-          <p className="mt-6 text-sm leading-relaxed text-white/70 max-w-md">
+          <p className="mt-6 text-sm leading-relaxed text-white/70 max-w-md whitespace-pre-line">
             {subtitle}
           </p>
         )}
@@ -95,8 +95,14 @@ function HeroBlock({ data }) {
 }
 
 // ── Rich Text ─────────────────────────────────────────────────────────────
+// Panelde düz metin olarak yazılmış (HTML etiketi içermeyen) içerikte Enter ile atılan satırlar korunsun
+const plainToHtml = (text) =>
+  /<[a-z][\s\S]*?>/i.test(text)
+    ? text
+    : text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r?\n/g, '<br/>');
+
 function RichTextBlock({ data }) {
-  const content = getLocalizedText(data.content);
+  const content = plainToHtml(getLocalizedText(data.content));
   if (!content) return null;
   return (
     <section className="py-16 bg-[var(--cream)]">
@@ -148,7 +154,7 @@ function GalleryBlock({ data }) {
           )}
           {title && (
             <h2
-              className="text-3xl md:text-4xl font-bold text-[var(--dark)]"
+              className="text-3xl md:text-4xl font-bold text-[var(--dark)] whitespace-pre-line"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               {title}
@@ -267,14 +273,14 @@ function CtaBlock({ data }) {
       <div className="container-shell max-w-2xl mx-auto">
         {title && (
           <h2
-            className="text-3xl md:text-5xl font-bold text-white leading-[1.1]"
+            className="text-3xl md:text-5xl font-bold text-white leading-[1.1] whitespace-pre-line"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             {title}
           </h2>
         )}
         {desc && (
-          <p className="mt-5 text-sm text-white/60 max-w-lg mx-auto leading-relaxed">
+          <p className="mt-5 text-sm text-white/60 max-w-lg mx-auto leading-relaxed whitespace-pre-line">
             {desc}
           </p>
         )}
@@ -360,14 +366,14 @@ function ImageTextBlock({ data }) {
           )}
           {title && (
             <h2
-              className="text-3xl md:text-4xl font-bold text-[var(--dark)] leading-[1.1]"
+              className="text-3xl md:text-4xl font-bold text-[var(--dark)] leading-[1.1] whitespace-pre-line"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               {title}
             </h2>
           )}
           {text && (
-            <p className="text-sm leading-8 text-[var(--muted)]">{text}</p>
+            <p className="text-sm leading-8 text-[var(--muted)] whitespace-pre-line">{text}</p>
           )}
           {ctaLabel && data.cta?.url && (
             <Link
@@ -409,7 +415,7 @@ function FaqBlock({ data }) {
                   style={{ color: 'var(--bordeaux)' }}
                 />
               </summary>
-              <div className="px-6 pb-5 pt-1 text-sm leading-7 text-[var(--muted)]">
+              <div className="px-6 pb-5 pt-1 text-sm leading-7 text-[var(--muted)] whitespace-pre-line">
                 {a}
               </div>
             </details>
@@ -462,7 +468,7 @@ function CardsBlock({ data }) {
             )}
             {title && (
               <h2
-                className="text-3xl md:text-4xl font-bold text-[var(--dark)]"
+                className="text-3xl md:text-4xl font-bold text-[var(--dark)] whitespace-pre-line"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 {title}
@@ -490,14 +496,14 @@ function CardsBlock({ data }) {
               <div className="p-5">
                 {it.title && (
                   <h3
-                    className="text-base font-bold text-[var(--dark)]"
+                    className="text-base font-bold text-[var(--dark)] whitespace-pre-line"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {it.title}
                   </h3>
                 )}
                 {it.description && (
-                  <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
+                  <p className="mt-2 text-xs leading-relaxed text-[var(--muted)] whitespace-pre-line">
                     {it.description}
                   </p>
                 )}
@@ -531,7 +537,7 @@ function ValuesBlock({ data }) {
             )}
             {title && (
               <h2
-                className="text-3xl md:text-4xl font-bold text-[var(--dark)]"
+                className="text-3xl md:text-4xl font-bold text-[var(--dark)] whitespace-pre-line"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 {title}
@@ -554,14 +560,14 @@ function ValuesBlock({ data }) {
                 <div className="flex-1">
                   {vTitle && (
                     <p
-                      className="font-bold text-[var(--dark)] text-base"
+                      className="font-bold text-[var(--dark)] text-base whitespace-pre-line"
                       style={{ fontFamily: 'var(--font-playfair)' }}
                     >
                       {vTitle}
                     </p>
                   )}
                   {vDesc && (
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--muted)] whitespace-pre-line">
                       {vDesc}
                     </p>
                   )}
