@@ -160,8 +160,25 @@ function CategoryPreview({ category }) {
   );
 }
 
+// Sabit üst bar (75px) + kategori çubuğu + scroll-mt: bölümün başlığı bu çizgiyi geçince aktif olur
+const ACTIVE_OFFSET = 160;
+
+/**
+ * tops: bölümlerin viewport'a göre üst kenarları (sıralı). Çizgiyi geçen son bölüm aktiftir;
+ * sayfa en alta dayandıysa son bölüm aktif sayılır (kısa son kategori çizgiye hiç ulaşamaz).
+ */
+export function pickActiveIndex(tops, atBottom) {
+  if (!tops.length) return -1;
+  if (atBottom) return tops.length - 1;
+  let current = 0;
+  for (let i = 0; i < tops.length; i++) {
+    if (tops[i] <= ACTIVE_OFFSET) current = i; else break;
+  }
+  return current;
+}
+
 // ── Sticky tabs ───────────────────────────────────────────────────────────────
-function CategoryTabs({ categories, activeId }) {
+function CategoryTabs({ categories, activeId, onPick }) {
   const scrollRef = useRef(null);
   const [canLeft, setCanLeft]   = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -186,9 +203,20 @@ function CategoryTabs({ categories, activeId }) {
   const slide = (dir) => scrollRef.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
 
   const scrollToSection = (slug) => {
+    onPick?.(`cat-${slug}`);
     const el = document.getElementById(`cat-${slug}`);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  // Aktif sekme çubuğun içinde görünür kalsın (mobilde yatay kaydırılıyor)
+  useEffect(() => {
+    const track = scrollRef.current;
+    if (!track || !activeId) return;
+    const btn = track.querySelector(`[data-cat="${activeId}"]`);
+    if (!btn) return;
+    const left = btn.offsetLeft - (track.clientWidth - btn.clientWidth) / 2;
+    track.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+  }, [activeId]);
 
   return (
     <div className="sticky top-[75px] z-20 bg-[var(--cream)] border-b border-[var(--beige)] py-3">
@@ -220,6 +248,8 @@ function CategoryTabs({ categories, activeId }) {
                 <button
                   key={cat._id}
                   type="button"
+                  data-cat={id}
+                  aria-current={activeId === id ? "true" : undefined}
                   onClick={() => scrollToSection(slug)}
                   className={`whitespace-nowrap rounded-full px-5 py-2 text-xs font-bold tracking-[0.15em] uppercase transition-all shrink-0 ${
                     activeId === id
@@ -253,30 +283,39 @@ function CategoryTabs({ categories, activeId }) {
 // ── Ana bileşen ───────────────────────────────────────────────────────────────
 export default function MenuPageClient({ categories, pageTitle, pageSubtitle }) {
   const [activeId, setActiveId] = useState(null);
+  const lockUntil = useRef(0);
 
   const validCats = (categories || []).filter((c) => c.items?.length);
 
+  // Sekmeye basınca kaydırma animasyonu sürerken ara kategorileri aktif yapma
+  const pick = (id) => {
+    lockUntil.current = Date.now() + 900;
+    setActiveId(id);
+  };
+
   useEffect(() => {
     if (!validCats.length) return;
-    const sectionIds = validCats.map((c) => `cat-${slugify(getLocalizedText(c.name, ""))}`);
-    const observers  = [];
-    const visible    = new Set();
+    const ids = validCats.map((c) => `cat-${slugify(getLocalizedText(c.name, ""))}`);
+    let raf = 0;
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) visible.add(id); else visible.delete(id);
-          const first = sectionIds.find((sid) => visible.has(sid));
-          if (first) setActiveId(first);
-        },
-        { rootMargin: "-20% 0px -70% 0px" }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+    const compute = () => {
+      raf = 0;
+      if (Date.now() < lockUntil.current) return;
+      const tops = ids.map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? Infinity);
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      const i = pickActiveIndex(tops, atBottom);
+      if (i >= 0) setActiveId(ids[i]);
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(compute); };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [validCats.length]);
 
   return (
@@ -297,7 +336,7 @@ export default function MenuPageClient({ categories, pageTitle, pageSubtitle }) 
       )}
 
       {/* Sticky tabs */}
-      {validCats.length > 0 && <CategoryTabs categories={validCats} activeId={activeId} />}
+      {validCats.length > 0 && <CategoryTabs categories={validCats} activeId={activeId} onPick={pick} />}
 
       {/* Kategori önizlemeleri */}
       <div className="container-shell">
