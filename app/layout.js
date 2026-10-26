@@ -1,4 +1,4 @@
-import { Poppins } from "next/font/google";
+import { Michroma, Poppins } from "next/font/google";
 import Script from "next/script";
 
 import Footer from "@/components/layout/Footer";
@@ -20,6 +20,14 @@ const poppins = Poppins({
   variable: "--font-poppins",
   display: "swap",
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+// Yalnızca footer'daki "Netravox" imzası için
+const michroma = Michroma({
+  subsets: ["latin"],
+  variable: "--font-michroma",
+  display: "swap",
+  weight: "400",
 });
 
 export async function generateMetadata() {
@@ -84,7 +92,7 @@ export default async function RootLayout({ children }) {
     : items;
 
   return (
-    <html lang="tr" className={poppins.variable}>
+    <html lang="tr" className={`${poppins.variable} ${michroma.variable}`}>
       <body
         style={{
           "--brand-primary": branding.primary,

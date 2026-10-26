@@ -95,7 +95,7 @@ export default function Footer({ company, navItems = [] }) {
   };
 
   return (
-    <footer className="bg-[var(--cream)] pb-8 pt-8 text-[var(--dark)]">
+    <footer className="bg-[var(--cream)] pt-8 text-[var(--dark)]">
       <div className="container-shell grid gap-10 border-t border-[var(--beige)] pt-6 pb-10 lg:grid-cols-[1.1fr_0.9fr_1fr_0.8fr]">
 
         {/* Marka */}
@@ -194,10 +194,32 @@ export default function Footer({ company, navItems = [] }) {
         </div>
       </div>
 
-      <div className="container-shell mt-16 flex items-center justify-between border-t border-[var(--beige)] pt-4 text-[11px] text-[var(--muted)]/60">
+      <div className="container-shell mt-16 border-t border-[var(--beige)] pt-4 pb-6 text-center text-[11px] text-[var(--muted)]/60 md:text-left">
         <span>© {new Date().getFullYear()} {getLocalizedText(company?.name, SITE.name)}. Tüm hakları saklıdır.</span>
-        <a href="https://netravox.com" target="_blank" rel="noreferrer" className="transition hover:text-[var(--bordeaux)]">Netravox tarafından geliştirildi</a>
       </div>
+
+      {/* Netravox imzası */}
+      <a
+        href="https://netravox.com"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Netravox tarafından geliştirildi"
+        className="group block bg-[var(--dark)] py-5"
+      >
+        <div className="container-shell flex items-center gap-3 sm:gap-6">
+          <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-transparent to-[var(--gold)]/40" />
+          <span className="flex shrink-0 items-baseline gap-2 whitespace-nowrap sm:gap-4">
+            <span className="text-[8px] font-light uppercase tracking-[0.25em] text-white/45 sm:text-[10px] sm:tracking-[0.35em]">Powered by</span>
+            <span
+              className="text-xs tracking-[0.18em] text-[#F5F5F5] sm:tracking-[0.25em] transition-colors group-hover:text-[var(--gold)] sm:text-lg"
+              style={{ fontFamily: "var(--font-michroma), var(--font-sans)" }}
+            >
+              NETRAVOX
+            </span>
+          </span>
+          <span className="h-px min-w-0 flex-1 bg-gradient-to-l from-transparent to-[var(--gold)]/40" />
+        </div>
+      </a>
     </footer>
   );
 }
