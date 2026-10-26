@@ -7,6 +7,8 @@ const remotePatterns = [
   { protocol: "http", hostname: "localhost" },
   // Netravox S3 bucket — *.amazonaws.com tek subdomain yakalar, çok noktalı URL'i yakalamaz
   { protocol: "https", hostname: "netravox-media.s3.us-east-1.amazonaws.com" },
+  // Panelden yüklenen yeni medya CDN adresiyle kaydediliyor (STORAGE_CDN_URL)
+  { protocol: "https", hostname: "media.netravox.com" },
 ];
 
 if (cdnHost) {
