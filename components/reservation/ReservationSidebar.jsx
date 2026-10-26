@@ -29,12 +29,12 @@ export default function ReservationSidebar({ company, galleryImage }) {
     <aside className="space-y-8">
       {/* Başlık */}
       <div>
-        <h1
+        <h2
           className="text-5xl font-bold leading-tight text-[var(--dark)]"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
           Rezervasyon
-        </h1>
+        </h2>
         <p className="mt-3 text-base leading-relaxed text-[var(--muted)] max-w-sm">
           Doğanın içinde özel masanızı ayırtın ve unutulmaz bir gastronomi
           deneyimine hazırlanın.

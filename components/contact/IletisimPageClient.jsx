@@ -33,7 +33,8 @@ function InfoCard({ icon: Icon, label, value, href, featured }) {
   return inner;
 }
 
-export default function IletisimPageClient({ company, galleryImages }) {
+export default function IletisimPageClient({ company, galleryImages, hasHero = false }) {
+  const PageHeading = hasHero ? "h2" : "h1";
   const contact = getCompanyContact(company);
 
   const instagramUrl = contact.instagram || "https://instagram.com/gustokartepe";
@@ -54,12 +55,12 @@ export default function IletisimPageClient({ company, galleryImages }) {
 
       {/* ── Page header ──────────────────────────────── */}
       <div className="container-shell pt-16 pb-12 text-center">
-        <h1
+        <PageHeading
           className="text-4xl md:text-5xl font-bold text-[var(--dark)]"
           style={{ fontFamily: "var(--font-playfair)" }}
         >
           İletişim
-        </h1>
+        </PageHeading>
         <p className="mt-4 text-sm leading-relaxed text-[var(--muted)] max-w-md mx-auto">
           Gusto Kartepe ile her konuda iletişime geçin. Adres, telefon ve sosyal medya
           kanallarımızdan bize ulaşabilirsiniz.

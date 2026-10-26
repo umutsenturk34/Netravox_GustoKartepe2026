@@ -11,7 +11,8 @@ import { SITE } from "@/lib/siteConfig";
 import { getFeaturedMenuItems, getLocalizedText, normalizeImage } from "@/lib/utils";
 
 export async function generateMetadata() {
-  const page = await getPage("menu");
+  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
+  const page = null;
   return buildPageMetadata(page, {
     title: "Restoran",
     description: "Kartepe ormanlarinda premium dining deneyimi. Sefin onerileri ve yerel malzemelerle hazirlanan ozel tarifler.",

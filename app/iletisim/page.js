@@ -27,7 +27,11 @@ export default async function IletisimPage() {
       {Array.isArray(page?.blocks) && page.blocks.length > 0 && (
         <BlockRenderer blocks={page.blocks} />
       )}
-      <IletisimPageClient company={company} galleryImages={galleryImages ?? []} />
+      <IletisimPageClient
+        company={company}
+        galleryImages={galleryImages ?? []}
+        hasHero={Array.isArray(page?.blocks) && page.blocks.some((b) => b.type === "hero" && b.data?.title)}
+      />
     </>
   );
 }

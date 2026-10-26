@@ -33,7 +33,7 @@ export async function generateMetadata() {
   return {
     metadataBase: new URL(SITE.url),
     title: {
-      default: `${siteName} | Doganin Icinde Serpme Kahvalti & Izgara`,
+      default: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
       template: `%s | ${siteName}`,
     },
     description,
@@ -45,13 +45,13 @@ export async function generateMetadata() {
       locale: "tr_TR",
       url: SITE.url,
       siteName,
-      title: `${siteName} | Doganin Icinde Serpme Kahvalti & Izgara`,
+      title: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
       description,
       images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteName }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${siteName} | Doganin Icinde Serpme Kahvalti & Izgara`,
+      title: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
       description,
       images: ["/opengraph-image"],
     },
@@ -61,7 +61,6 @@ export async function generateMetadata() {
         }
       : undefined,
     robots: { index: true, follow: true },
-    alternates: { canonical: SITE.url },
     icons: company?.branding?.favicon
       ? { icon: company.branding.favicon, shortcut: company.branding.favicon, apple: company.branding.favicon }
       : undefined,

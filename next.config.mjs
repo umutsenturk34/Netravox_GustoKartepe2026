@@ -38,7 +38,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: "/info", destination: "/iletisim", permanent: true },
+      { source: "/info", destination: "/hakkimizda", permanent: true },
       { source: "/menu", destination: "/restoran/menu", permanent: true },
       { source: "/rezervasyon", destination: "/restoran/rezervasyon", permanent: true },
       // Eski Wix sitesinin adresleri (Google'daki bağlantılar 404 vermesin)

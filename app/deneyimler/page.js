@@ -12,7 +12,8 @@ import { SITE } from "@/lib/siteConfig";
 const icons = { Tent, PartyPopper, House, Trees, CalendarDays, Coffee };
 
 export async function generateMetadata() {
-  const page = await getPage("generic");
+  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
+  const page = null;
   return buildPageMetadata(page, {
     title: "Deneyimler",
     description: "Kamp alanlari, bungalovlar, etkinlik alanlari ve daha fazlasi - Gusto Kartepe'nin gelisim vizyonu.",
@@ -65,6 +66,7 @@ export default async function DeneyimlerPage() {
             title={vision.title}
             description={vision.description}
             light
+            as="h1"
           />
           <ImageCard
             image={content.visionImage}

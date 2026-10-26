@@ -10,7 +10,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 
 export async function generateMetadata() {
-  const page = await getPage("generic");
+  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
+  const page = null;
   return buildPageMetadata(page, {
     title: "Sıkça Sorulan Sorular",
     description: "Rezervasyon, menü, ulaşım ve özel etkinlikler hakkında en sık sorulan soruların yanıtlarını burada bulabilirsiniz.",

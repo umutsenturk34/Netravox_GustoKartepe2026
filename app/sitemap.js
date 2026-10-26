@@ -14,8 +14,9 @@ export default async function sitemap() {
     { url: `${SITE.url}/restoran/galeri`, priority: 0.7, changeFrequency: "monthly" },
     { url: `${SITE.url}/iletisim`, priority: 0.7, changeFrequency: "monthly" },
     { url: `${SITE.url}/deneyimler`, priority: 0.8, changeFrequency: "monthly" },
+    { url: `${SITE.url}/sss`, priority: 0.6, changeFrequency: "monthly" },
     { url: `${SITE.url}/blog`, priority: 0.7, changeFrequency: "weekly" },
-  ].map((route) => ({ ...route, lastModified: new Date() }));
+  ];
 
   const blogRoutes = posts.map((post) => ({
     url: `${SITE.url}/blog/${post.slug}`,

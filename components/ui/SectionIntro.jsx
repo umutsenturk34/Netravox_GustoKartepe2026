@@ -1,4 +1,4 @@
-export function SectionIntro({ eyebrow, title, description, align = "left", light = false }) {
+export function SectionIntro({ eyebrow, title, description, align = "left", light = false, as: Heading = "h2" }) {
   const alignment = align === "center" ? "mx-auto text-center" : "";
   const titleColor = light ? "text-white" : "text-[var(--dark)]";
   const textColor = light ? "text-white/70" : "text-[var(--muted)]";
@@ -10,9 +10,9 @@ export function SectionIntro({ eyebrow, title, description, align = "left", ligh
           {eyebrow}
         </p>
       ) : null}
-      <h2 className={`whitespace-pre-line font-playfair text-4xl leading-tight md:text-5xl ${titleColor}`}>
+      <Heading className={`whitespace-pre-line font-playfair text-4xl leading-tight md:text-5xl ${titleColor}`}>
         {title}
-      </h2>
+      </Heading>
       {description ? (
         /[<&]/.test(description) ? (
           <div

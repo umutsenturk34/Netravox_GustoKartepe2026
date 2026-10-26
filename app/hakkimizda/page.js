@@ -29,8 +29,10 @@ export default async function HakkimizdaPage() {
   const [company, page, team, gallery] = await Promise.all([getCompany(), getPage("about"), getTeam(), getGallery()]);
 
   if (Array.isArray(page?.blocks) && page.blocks.length > 0) {
+    const hasHeroTitle = page.blocks.some((b) => b.type === "hero" && b.data?.title);
     return (
       <>
+        {!hasHeroTitle && <h1 className="sr-only">Hakkımızda</h1>}
         <BreadcrumbSchema items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
         <Breadcrumb items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
         <BlockRenderer blocks={page.blocks} />
