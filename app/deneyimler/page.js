@@ -4,7 +4,7 @@ import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ImageCard } from "@/components/ui/ImageCard";
 import { SectionIntro } from "@/components/ui/SectionIntro";
-import { getCompany, getPage } from "@/lib/api";
+import { getCompany, getPage, getPageBySlug } from "@/lib/api";
 import { experiences as fallbackExperiences } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
@@ -12,8 +12,8 @@ import { SITE } from "@/lib/siteConfig";
 const icons = { Tent, PartyPopper, House, Trees, CalendarDays, Coffee };
 
 export async function generateMetadata() {
-  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
-  const page = null;
+  // Şablonu olmayan sayfa: panelde aynı slug'la oluşturulmuş sayfanın SEO'su kullanılır (yoksa varsayılanlar).
+  const page = await getPageBySlug("deneyimler");
   return buildPageMetadata(page, {
     title: "Deneyimler",
     description: "Kamp alanlari, bungalovlar, etkinlik alanlari ve daha fazlasi - Gusto Kartepe'nin gelisim vizyonu.",

@@ -5,14 +5,14 @@ import { ArrowRight, Leaf, Star, Users, Clock } from "lucide-react";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { getCompany, getGallery, getMenu, getPage } from "@/lib/api";
+import { getCompany, getGallery, getMenu, getPage, getPageBySlug } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 import { getFeaturedMenuItems, getLocalizedText, normalizeImage } from "@/lib/utils";
 
 export async function generateMetadata() {
-  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
-  const page = null;
+  // Şablonu olmayan sayfa: panelde aynı slug'la oluşturulmuş sayfanın SEO'su kullanılır (yoksa varsayılanlar).
+  const page = await getPageBySlug("restoran");
   return buildPageMetadata(page, {
     title: "Restoran",
     description: "Kartepe ormanlarinda premium dining deneyimi. Sefin onerileri ve yerel malzemelerle hazirlanan ozel tarifler.",

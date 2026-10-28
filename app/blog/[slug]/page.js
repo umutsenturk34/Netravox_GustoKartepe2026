@@ -21,11 +21,16 @@ export async function generateMetadata({ params }) {
     return { title: "Blog Yazisi Bulunamadi" };
   }
 
+  const seo = post.seo || {};
+  const title = getLocalizedText(seo.metaTitle) || getLocalizedText(post.title);
+  const description = getLocalizedText(seo.metaDesc) || getLocalizedText(post.excerpt);
+  const image = seo.ogImage || post.coverImage;
+  const canonical = seo.canonicalUrl || `${SITE.url}/blog/${post.slug}`;
   return {
-    title: getLocalizedText(post.title),
-    description: getLocalizedText(post.excerpt),
-    openGraph: { images: post.coverImage ? [{ url: post.coverImage }] : [], url: `${SITE.url}/blog/${post.slug}` },
-    alternates: { canonical: `${SITE.url}/blog/${post.slug}` },
+    title,
+    description,
+    openGraph: { title, description, images: image ? [{ url: image }] : [], url: canonical },
+    alternates: { canonical },
   };
 }
 

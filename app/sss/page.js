@@ -5,13 +5,13 @@ import FaqAccordion from "@/components/faq/FaqAccordion";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { getFaqs, getCompany, getPage } from "@/lib/api";
+import { getFaqs, getCompany, getPage, getPageBySlug } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 
 export async function generateMetadata() {
-  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
-  const page = null;
+  // Şablonu olmayan sayfa: panelde aynı slug'la oluşturulmuş sayfanın SEO'su kullanılır (yoksa varsayılanlar).
+  const page = await getPageBySlug("sss");
   return buildPageMetadata(page, {
     title: "Sıkça Sorulan Sorular",
     description: "Rezervasyon, menü, ulaşım ve özel etkinlikler hakkında en sık sorulan soruların yanıtlarını burada bulabilirsiniz.",

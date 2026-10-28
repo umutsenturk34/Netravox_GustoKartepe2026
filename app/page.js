@@ -5,15 +5,17 @@ import ReservationCTA from '@/components/home/ReservationCTA';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import { BlockRenderer } from '@/components/blocks/BlockRenderer';
 import { getCompany, getPage } from '@/lib/api';
+import { buildPageMetadata } from '@/lib/seo';
 import { SITE } from '@/lib/siteConfig';
 
 export async function generateMetadata() {
-  return {
+  const page = await getPage('home');
+  return buildPageMetadata(page, {
     title: 'Gusto Kartepe | Doganin Icinde Serpme Kahvalti & Izgara',
     description:
       "Kartepe'nin essiz dogasinda huzurun ve lezzetin merkezi. Serpme kahvalti, izgara cesitleri ve ozel atmosfer.",
-    alternates: { canonical: SITE.url },
-  };
+    canonical: SITE.url,
+  });
 }
 
 export default async function HomePage() {

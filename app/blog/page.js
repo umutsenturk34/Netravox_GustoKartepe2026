@@ -1,13 +1,13 @@
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import BlogList from "@/components/blog/BlogList";
-import { getBlog, getPage } from "@/lib/api";
+import { getBlog, getPage, getPageBySlug } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/siteConfig";
 
 export async function generateMetadata() {
-  // Bu sayfanın kendi SEO kaydı yok; başka sayfanınkini miras almasın.
-  const page = null;
+  // Şablonu olmayan sayfa: panelde aynı slug'la oluşturulmuş sayfanın SEO'su kullanılır (yoksa varsayılanlar).
+  const page = await getPageBySlug("blog");
   return buildPageMetadata(page, {
     title: "Blog",
     description: "Gusto Kartepe'den doga, gastronomi ve Kartepe haberleri.",

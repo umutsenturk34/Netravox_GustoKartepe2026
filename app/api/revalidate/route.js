@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -13,10 +13,12 @@ export async function POST(req) {
       tags || [
         "company", "navigation", "menu", "gallery", "testimonials", "team", "faqs", "blog", "redirects",
         "page-home", "page-about", "page-contact", "page-generic", "page-reservation", "page-menu", "page-gallery",
-        "featured",
+        "featured", "seo-settings", "popups",
       ];
 
     tagsToRevalidate.forEach((tag) => revalidateTag(tag));
+    // Etiket verilmediyse (panelden "önbelleği temizle"): slug/şema/blog etiketleri dinamik olduğundan tüm site yenilenir.
+    if (!tags) revalidatePath("/", "layout");
 
     return NextResponse.json({ revalidated: true, tags: tagsToRevalidate });
   } catch {
