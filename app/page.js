@@ -3,6 +3,7 @@ import HeroSection from '@/components/home/HeroSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import ReservationCTA from '@/components/home/ReservationCTA';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
+import { PageSchemas } from '@/components/seo/PageSchemas';
 import { BlockRenderer } from '@/components/blocks/BlockRenderer';
 import { getCompany, getPage } from '@/lib/api';
 import { buildPageMetadata } from '@/lib/seo';
@@ -23,11 +24,17 @@ export default async function HomePage() {
   const hasBlocks = Array.isArray(page?.blocks) && page.blocks.length > 0;
 
   if (hasBlocks) {
-    return <BlockRenderer blocks={page.blocks} />;
+    return (
+      <>
+        <PageSchemas scope="home" />
+        <BlockRenderer blocks={page.blocks} />
+      </>
+    );
   }
 
   return (
     <>
+      <PageSchemas scope="home" />
       <HeroSection company={company} />
       <FeaturedDishes company={company} />
       <ExperienceSection company={company} />

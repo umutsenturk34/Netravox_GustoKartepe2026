@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { getCompany, getGallery, getPage, getTeam } from "@/lib/api";
@@ -33,6 +34,7 @@ export default async function HakkimizdaPage() {
     return (
       <>
         {!hasHeroTitle && <h1 className="sr-only">Hakkımızda</h1>}
+        <PageSchemas scope="about" />
         <BreadcrumbSchema items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
         <Breadcrumb items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
         <BlockRenderer blocks={page.blocks} />
@@ -80,6 +82,7 @@ export default async function HakkimizdaPage() {
 
   return (
     <>
+      <PageSchemas scope="about" />
       <BreadcrumbSchema items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
       <Breadcrumb items={[{ name: "Ana Sayfa", url: "/" }, { name: "Hakkımızda", url: "/hakkimizda" }]} />
 

@@ -1,3 +1,4 @@
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import BlogList from "@/components/blog/BlogList";
@@ -24,6 +25,7 @@ export default async function BlogPage({ searchParams }) {
 
   return (
     <>
+      <PageSchemas scope="blog" />
       <BreadcrumbSchema
         items={[
           { name: "Ana Sayfa", url: "/" },

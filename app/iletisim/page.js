@@ -1,5 +1,6 @@
 import IletisimPageClient from "@/components/contact/IletisimPageClient";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
@@ -21,6 +22,7 @@ export default async function IletisimPage() {
 
   return (
     <>
+      <PageSchemas scope="contact" />
       <BreadcrumbSchema items={[{ name: "Ana Sayfa", url: "/" }, { name: "İletişim", url: "/iletisim" }]} />
       <LocalBusinessSchema company={company} />
       <Breadcrumb items={[{ name: "Ana Sayfa", url: "/" }, { name: "İletişim", url: "/iletisim" }]} />

@@ -1,5 +1,6 @@
 import MenuPageClient from "@/components/restaurant/MenuPageClient";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { MenuSchema } from "@/components/seo/MenuSchema";
@@ -33,6 +34,7 @@ export default async function MenuPage() {
 
   return (
     <>
+      <PageSchemas scope="menu" />
       <BreadcrumbSchema
         items={[
           { name: "Ana Sayfa", url: "/" },

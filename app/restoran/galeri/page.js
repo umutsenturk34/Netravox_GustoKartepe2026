@@ -1,5 +1,6 @@
 import GalleryClient from "@/components/restaurant/GalleryClient";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { getCompany, getGallery, getFeaturedGallery, getPage } from "@/lib/api";
@@ -38,6 +39,7 @@ export default async function GaleriPage() {
 
   return (
     <>
+      <PageSchemas scope="gallery" />
       <BreadcrumbSchema
         items={[
           { name: "Ana Sayfa", url: "/" },

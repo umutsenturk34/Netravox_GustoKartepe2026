@@ -8,7 +8,7 @@ import Navbar from "@/components/layout/Navbar";
 import PopupManager from "@/components/ui/PopupManager";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { RestaurantSchema } from "@/components/seo/RestaurantSchema";
-import { getCompany, getFooterNavigation, getNavigation, getPopups, getSchemas } from "@/lib/api";
+import { getCompany, getFooterNavigation, getNavigation, getPopups, getSchemas, getSeoSettings } from "@/lib/api";
 import { fallbackNavigation } from "@/lib/content";
 import { SITE } from "@/lib/siteConfig";
 import { getCompanyBranding, getLocalizedText, getNavigationItems } from "@/lib/utils";
@@ -31,9 +31,13 @@ const michroma = Michroma({
 });
 
 export async function generateMetadata() {
-  const company = await getCompany();
-  const siteName = company?.name || SITE.name;
-  const description = getLocalizedText(company?.description) || SITE.description;
+  const [company, seoSettings] = await Promise.all([getCompany(), getSeoSettings()]);
+  const siteName = getLocalizedText(seoSettings?.siteName) || company?.name || SITE.name;
+  const description =
+    getLocalizedText(seoSettings?.defaultMetaDescription) || getLocalizedText(company?.description) || SITE.description;
+  const defaultTitle =
+    getLocalizedText(seoSettings?.defaultMetaTitle) || `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`;
+  const ogImage = seoSettings?.defaultOgImage || "/opengraph-image";
   const keywords = company?.seo?.keywords?.length
     ? company.seo.keywords
     : ["gusto kartepe", "serpme kahvalti", "kartepe restoran", "kocaeli restoran", "doga restorani", "izgara"];
@@ -41,7 +45,7 @@ export async function generateMetadata() {
   return {
     metadataBase: new URL(SITE.url),
     title: {
-      default: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
+      default: defaultTitle,
       template: `%s | ${siteName}`,
     },
     description,
@@ -53,19 +57,19 @@ export async function generateMetadata() {
       locale: "tr_TR",
       url: SITE.url,
       siteName,
-      title: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
+      title: defaultTitle,
       description,
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteName }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: siteName }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${siteName} | Doğanın İçinde Serpme Kahvaltı & Izgara`,
+      title: defaultTitle,
       description,
-      images: ["/opengraph-image"],
+      images: [ogImage],
     },
-    verification: company?.searchConsoleVerification
+    verification: (company?.searchConsoleVerification || seoSettings?.searchConsoleVerification)
       ? {
-          google: company.searchConsoleVerification,
+          google: company?.searchConsoleVerification || seoSettings.searchConsoleVerification,
         }
       : undefined,
     robots: { index: true, follow: true },

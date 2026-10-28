@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ReservationPageClient from "@/components/reservation/ReservationPageClient";
+import { PageSchemas } from "@/components/seo/PageSchemas";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { getCompany, getGallery, getPage } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/seo";
@@ -46,6 +47,7 @@ export default async function ReservationPage() {
 
   return (
     <>
+      <PageSchemas scope="reservation" />
       <BreadcrumbSchema
         items={[
           { name: "Ana Sayfa", url: "/" },

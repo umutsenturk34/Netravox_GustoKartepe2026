@@ -13,7 +13,7 @@ export async function POST(req) {
       tags || [
         "company", "navigation", "menu", "gallery", "testimonials", "team", "faqs", "blog", "redirects",
         "page-home", "page-about", "page-contact", "page-generic", "page-reservation", "page-menu", "page-gallery",
-        "featured", "seo-settings", "popups",
+        "featured", "seo-settings", "popups", "pages-list",
       ];
 
     tagsToRevalidate.forEach((tag) => revalidateTag(tag));
